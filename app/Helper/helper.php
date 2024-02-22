@@ -17,3 +17,10 @@ if (!function_exists('generateSmsCode')) {
         return rand(1000, 9999);
     }
 }
+
+if (!function_exists('generateEmailCode')) {
+    function generateEmailCode()
+    {
+        return rand(1000, 9999);
+    }
+}
