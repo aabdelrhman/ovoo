@@ -21,3 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('auth/facebook',[AuthController::class, 'facebook']);
 Route::get('auth/facebook/callback', [AuthController::class, 'facebookCallback']);
+
+Route::group(['prefix' => 'v1'], function () {
+    Route::post('/login-with-phone' , [AuthController::class, 'loginWithPhone']);
+    Route::post('/verify-code' , [AuthController::class, 'verifyCode']);
+});
