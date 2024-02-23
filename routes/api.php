@@ -23,8 +23,10 @@ Route::get('auth/facebook',[AuthController::class, 'facebook']);
 Route::get('auth/facebook/callback', [AuthController::class, 'facebookCallback']);
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::post('/login-with-phone' , [AuthController::class, 'loginWithPhone']);
-    Route::post('/verify-code' , [AuthController::class, 'verifyCode']);
-    Route::post('signup-with-email' , [AuthController::class , 'signUpWithEmail']);
-    Route::post('login-with-email' , [AuthController::class , 'loginWithEmail']);
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('/login-with-phone' , 'loginWithPhone');
+        Route::post('/verify-code' , 'verifyCode');
+        Route::post('signup-with-email' , 'signUpWithEmail');
+        Route::post('login-with-email' , 'loginWithEmail');
+    });
 });
