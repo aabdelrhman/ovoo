@@ -28,6 +28,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'user_name' => $this->user_name,
             $this->mergeWhen($this->includeToken, [
                 'token' => $this->createToken('api')->plainTextToken,
             ]),

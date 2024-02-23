@@ -10,6 +10,7 @@ use App\Mail\VerfiyUserEmail;
 use App\Models\User;
 use App\Services\SmsService;
 use App\Traits\ApiResponse;
+use App\Traits\UserTrait;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use Exception;
