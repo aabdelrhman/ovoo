@@ -4,8 +4,9 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Validation\Rules\Password;
 
-class SignUpWithEmailRequest extends BaseApiRequest
+class LoginWithEmailRequest extends BaseApiRequest
 {
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -14,8 +15,9 @@ class SignUpWithEmailRequest extends BaseApiRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|unique:users',
-            'password' => ['required' ,Password::min(8)->mixedCase()->letters()->symbols()->numbers()],
+            'email' => 'required|email|exists:users',
+            // 'password' => ['required' ,Password::min(8)->mixedCase()->letters()->symbols()->numbers()],
+            'password' => ['required'],
         ];
     }
 }
