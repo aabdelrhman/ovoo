@@ -7,6 +7,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
+
+
+    protected $includeToken;
+
+    public function __construct($resource, $includeToken = false)
+    {
+        parent::__construct($resource);
+        $this->includeToken = $includeToken;
+    }
     /**
      * Transform the resource into an array.
      *
@@ -19,8 +28,8 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            $this->mergeWhen($this->id, [
-                'token' => 'value',
+            $this->mergeWhen($this->includeToken, [
+                'token' => $this->createToken('api')->plainTextToken,
             ]),
         ];
     }
