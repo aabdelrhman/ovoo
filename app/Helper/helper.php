@@ -1,7 +1,5 @@
 <?php
 
-
-
 if (!function_exists('image_resize_save')) {
     function image_resize_save($image, $path)
     {
