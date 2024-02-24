@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,5 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('send-verification-code', 'sendResetPasswordEmail');
         Route::post('reset-password', 'resetPassword');
     });
+    Route::get('settings', [SettingController::class, 'index']);
 });
