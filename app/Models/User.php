@@ -36,6 +36,8 @@ class User extends Authenticatable
         'photo_url',
         'firebase_id_token',
         'nonce',
+        'country_code',
+        'country_id',
 
     ];
 
