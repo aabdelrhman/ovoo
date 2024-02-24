@@ -32,6 +32,9 @@ class UserResource extends JsonResource
             $this->mergeWhen($this->includeToken, [
                 'token' => $this->createToken('api')->plainTextToken,
             ]),
+            'provider' => $this->provider,
+            'uid' => $this->uid,
+            'photo_url' => $this->photo_url,
         ];
     }
 }

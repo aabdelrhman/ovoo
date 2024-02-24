@@ -30,7 +30,12 @@ class User extends Authenticatable
         'phone',
         'active',
         'verification_code',
-        'user_name'
+        'user_name',
+        'provider',
+        'uid',
+        'photo_url',
+        'firebase_id_token',
+        'nonce',
 
     ];
 

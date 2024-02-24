@@ -19,14 +19,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('auth/facebook',[AuthController::class, 'facebook']);
-Route::get('auth/facebook/callback', [AuthController::class, 'facebookCallback']);
 
 Route::group(['prefix' => 'v1'], function () {
     Route::controller(AuthController::class)->group(function () {
-        Route::post('/login-with-phone' , 'loginWithPhone');
-        Route::post('/verify-code' , 'verifyCode');
-        Route::post('signup-with-email' , 'signUpWithEmail');
-        Route::post('login-with-email' , 'loginWithEmail');
+        Route::post('/login-with-phone', 'loginWithPhone');
+        Route::post('/verify-code', 'verifyCode');
+        Route::post('signup-with-email', 'signUpWithEmail');
+        Route::post('login-with-email', 'loginWithEmail');
+        Route::post('social-auth', 'socialAuth');
     });
 });
