@@ -17,20 +17,12 @@ class BaseApiRequest extends FormRequest
     {
         return true;
     }
-    // public function failedValidation(Validator $validator)
-    // {
-    //     throw new HttpResponseException(response()->json([
-    //         'message' => $validator->errors()->first(),
-    //         'code' => 422,
-    //     ], 422));
-    // }
-public function failedValidation(Validator $validator)
-{
-
-    throw (new ValidationException($validator))
-        ->errorBag($this->errorBag)
-        ->redirectTo($this->getRedirectUrl());
-
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'message' => $validator->errors()->first(),
+            'code' => 400,
+        ], 400));
+    }
+   
 }
-}
-

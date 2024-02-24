@@ -16,81 +16,33 @@ use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\Api\SocialAuthRequest;
 
 class AuthController extends Controller
 {
     use ApiResponse;
-    public function facebook(Request $request)
+    public function socialAuth(SocialAuthRequest $request)
     {
-        $request->validate([
-            'access_token' => 'required',
-        ]);
-
-        try {
-            $user = Socialite::driver('facebook')->userFromToken($request->access_token);
-        } catch (Exception $e) {
-
-            return response()->json(['error' => 'Unauthorized'], 401);
+        // dd($request->all());
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            $is_uid_correct = Hash::check($request->uid, $user->uid);
+            if (!$is_uid_correct) {
+                return $this->returnErrorRespose('Invalid Credentials', 401);
+            } else {
+                return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
+            }
+        } else {
+            $user = User::create([
+                'email' => $request->email,
+                'name' => $request->name,
+                'provider' => $request->provider,
+                'photo_url' => $request->photo_url,
+            ]);
+            $user->uid = Hash::make($request->uid);
+            $user->save();
+            return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
         }
-
-        // Use $user data to authenticate user or create new user
-
-        return response()->json(['user' => $user]);
-    }
-
-    public function facebookCallback(Request $request)
-    {
-        $request->validate([
-            'code' => 'required',
-        ]);
-
-        try {
-            $user = Socialite::driver('facebook')->user();
-        } catch (Exception $e) {
-
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        // Use $user data to authenticate user or create new user
-
-        return response()->json(['user' => $user]);
-    }
-
-
-    public function google(Request $request)
-    {
-        $request->validate([
-            'access_token' => 'required',
-        ]);
-
-        try {
-            $user = Socialite::driver('google')->userFromToken($request->access_token);
-        } catch (Exception $e) {
-
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        // Use $user data to authenticate user or create new user
-
-        return response()->json(['user' => $user]);
-    }
-
-    public function googleCallback(Request $request)
-    {
-        $request->validate([
-            'code' => 'required',
-        ]);
-
-        try {
-            $user = Socialite::driver('google')->user();
-        } catch (Exception $e) {
-
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        // Use $user data to authenticate user or create new user
-
-        return response()->json(['user' => $user]);
     }
 
     public function signUpWithEmail(SignUpWithEmailRequest $request)
@@ -105,62 +57,63 @@ class AuthController extends Controller
                 'verification_code' => $verificationCode
             ]);
             Mail::to($request->email)->send(new VerfiyUserEmail([
-                'code'=>$verificationCode,
+                'code' => $verificationCode,
             ]));
             return $this->returnSuccessRespose('Success', null, 200);
         } catch (Exception $e) {
-            return $this->returnErrorRespose($e->getMessage() , 500);
+            return $this->returnErrorRespose($e->getMessage(), 500);
         }
     }
 
-    public function loginWithEmail(LoginWithEmailRequest $request){
+    public function loginWithEmail(LoginWithEmailRequest $request)
+    {
         try {
-            $user = User::where('email' , $request->email)->first();
-            if($user && Hash::check($request->password , $user->password)){
-                return $this->returnSuccessRespose('Success', new UserResource($user , true), 200);
-            }else{
-                return $this->returnErrorRespose('Invalid Credentials' , 401);
+            $user = User::where('email', $request->email)->first();
+            if ($user && Hash::check($request->password, $user->password)) {
+                return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
+            } else {
+                return $this->returnErrorRespose('Invalid Credentials', 401);
             }
         } catch (Exception $e) {
-            return $this->returnErrorRespose($e->getMessage() , 500);
+            return $this->returnErrorRespose($e->getMessage(), 500);
         }
     }
 
-    public function loginWithPhone(LoginWithPhoneRequest $request , SmsService $smsService)
+    public function loginWithPhone(LoginWithPhoneRequest $request, SmsService $smsService)
     {
         try {
             $smsCode = generateSmsCode();
             $user = User::where($request->validated())->first();
-            if(!$user){
+            if (!$user) {
                 User::create([
                     'phone' => $request->phone,
                     'verification_code' => $smsCode
                 ]);
             }
-            $smsService->sendSMS($request->phone , $smsCode);
+            $smsService->sendSMS($request->phone, $smsCode);
             return $this->returnSuccessRespose('Success', null, 200);
         } catch (Exception $e) {
-            return $this->returnErrorRespose($e->getMessage() , 500);
+            return $this->returnErrorRespose($e->getMessage(), 500);
         }
     }
 
     public function verifyCode(Request $request)
     {
         try {
-            $user = User::where('verification_code' , $request->code)->Where(function($q)use ($request){
-                $q->where('email' , $request->data)->orWhere('phone' , $request->data);
+            $user = User::where('verification_code', $request->code)->Where(function ($q) use ($request) {
+                $q->where('email', $request->data)->orWhere('phone', $request->data);
             })->first();
-            if($user){
-                if($user->active == '0'){
+            if ($user) {
+                if ($user->active == '0') {
                     $user->active = '1';
                     $user->save();
                 }
-                return $this->returnSuccessRespose('Success', new UserResource($user , true) , 200);
-            }else{
-                return $this->returnErrorRespose('Invalid Code' , 400);
+                return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
+            } else {
+                return $this->returnErrorRespose('Invalid Code', 400);
             }
         } catch (Exception $e) {
-            return $this->returnErrorRespose($e->getMessage() , 500);
+            return $this->returnErrorRespose($e->getMessage(), 500);
         }
     }
 }
