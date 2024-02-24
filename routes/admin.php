@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AuthController;
+use App\Models\Admin;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +15,17 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
 |
-*/
+ */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::controller(AuthController::class)->group(function () {
-        Route::post('/login' , 'login');
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('testt' , function(){
+        $admin = Admin::first();
+        dd($admin->getRoleNames());
+        dd($admin->permissions);
     });
 });
