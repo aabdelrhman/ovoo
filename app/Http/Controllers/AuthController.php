@@ -90,7 +90,8 @@ class AuthController extends Controller
                 User::create([
                     'phone' => $request->phone,
                     'verification_code' => $smsCode,
-                    'country_code' => $request->country_code
+                    'country_code' => $request->country_code,
+                    'country_flag' => $request->country_flag,
                 ]);
             }
             $smsService->sendSMS($request->phone, $smsCode);
