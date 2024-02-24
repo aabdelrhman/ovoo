@@ -29,7 +29,7 @@ class AuthController extends Controller
         if ($user) {
             $is_uid_correct = Hash::check($request->uid, $user->uid);
             if (!$is_uid_correct) {
-                return $this->returnErrorRespose('Invalid Credentials', 401);
+                return $this->returnErrorRespose('Invalid Credentials', 404);
             } else {
                 return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
             }
