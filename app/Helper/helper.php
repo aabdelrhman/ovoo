@@ -12,14 +12,14 @@ if (!function_exists('image_resize_save')) {
 if (!function_exists('generateSmsCode')) {
     function generateSmsCode()
     {
-        return rand(1000, 9999);
+        return rand(10000, 99999);
     }
 }
 
 if (!function_exists('generateEmailCode')) {
     function generateEmailCode()
     {
-        return rand(1000, 9999);
+        return rand(10000, 99999);
     }
 }
 

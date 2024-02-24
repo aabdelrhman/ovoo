@@ -29,7 +29,7 @@ class AuthController extends Controller
         if ($user) {
             $is_uid_correct = Hash::check($request->uid, $user->uid);
             if (!$is_uid_correct) {
-                return $this->returnErrorRespose('Invalid Credentials', 401);
+                return $this->returnErrorRespose('Invalid Credentials', 404);
             } else {
                 return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
             }
@@ -90,8 +90,7 @@ class AuthController extends Controller
                 User::create([
                     'phone' => $request->phone,
                     'verification_code' => $smsCode,
-                    'country_code' => $request->country_code,
-                    'country_id' => $request->country_id
+                    'country_code' => $request->country_code
                 ]);
             }
             $smsService->sendSMS($request->phone, $smsCode);
@@ -104,9 +103,7 @@ class AuthController extends Controller
     public function resendVerificationCode(Request $request, SmsService $smsService)
     {
         try {
-            $user = User::where('verification_code', $request->code)->Where(function ($q) use ($request) {
-                $q->where('email', $request->data)->orWhere('phone', $request->data);
-            })->first();
+            $user = User::where('email', $request->data)->orWhere('phone', $request->data)->first();
             if ($user) {
                 if ($user->phone == $request->data) {
                     $smsCode = generateSmsCode();
@@ -117,7 +114,7 @@ class AuthController extends Controller
                     $verificationCode = generateEmailCode();
                     $user->verification_code = $verificationCode;
                     $user->save();
-                    Mail::to($request->email)->send(new VerfiyUserEmail([
+                    Mail::to($request->data)->send(new VerfiyUserEmail([
                         'code' => $verificationCode,
                     ]));
                 }
