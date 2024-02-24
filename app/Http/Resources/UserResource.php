@@ -39,6 +39,7 @@ class UserResource extends JsonResource
             'country' => $this->whenLoaded('country', new CountriesResource($this->country)),
             'interests' => InterestResource::collection($this->whenLoaded('interests')),
             'gender' => $this->gender,
+            'is_profile_completed' => $this->is_profile_completed == 1 ? true : false,
         ];
     }
 }
