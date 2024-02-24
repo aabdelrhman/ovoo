@@ -25,11 +25,31 @@ class SettingController extends Controller
                 if (!isset($formattedData[$category])) {
                     $formattedData[$category] = [];
                 }
-                $formattedData[$category][] = [$key => $value];
+                $formattedData[$category][$key] = $value;
             }
             return $this->returnSuccessRespose('Success', $formattedData);
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage() , 500);
         }
+    }
+
+    public function update(Request $request){
+        try {
+            $data = $request->all();
+            foreach($data as $key => $value){
+                $setting = Setting::where('key', $key)->first();
+                if(!is_array($value)){
+                    $setting->value = $value;
+                    $setting->save();
+                }else{
+                    $setting->value = json_encode($value);
+                    $setting->save();
+                }
+            }
+            return $this->returnSuccessRespose('Success');
+        } catch (\Throwable $th) {
+            return $this->returnErrorRespose($th->getMessage() , 500);
+        }
+
     }
 }

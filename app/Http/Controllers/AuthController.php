@@ -17,6 +17,8 @@ use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\Api\SocialAuthRequest;
+use App\Http\Requests\CompleteProfileRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -27,7 +29,7 @@ class AuthController extends Controller
         if ($user) {
             $is_uid_correct = Hash::check($request->uid, $user->uid);
             if (!$is_uid_correct) {
-                return $this->returnErrorRespose('Invalid Credentials', 401);
+                return $this->returnErrorRespose('Invalid Credentials', 404);
             } else {
                 return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
             }
@@ -102,9 +104,7 @@ class AuthController extends Controller
     public function resendVerificationCode(Request $request, SmsService $smsService)
     {
         try {
-            $user = User::where('verification_code', $request->code)->Where(function ($q) use ($request) {
-                $q->where('email', $request->data)->orWhere('phone', $request->data);
-            })->first();
+            $user = User::where('email', $request->data)->orWhere('phone', $request->data)->first();
             if ($user) {
                 if ($user->phone == $request->data) {
                     $smsCode = generateSmsCode();
@@ -115,7 +115,7 @@ class AuthController extends Controller
                     $verificationCode = generateEmailCode();
                     $user->verification_code = $verificationCode;
                     $user->save();
-                    Mail::to($request->email)->send(new VerfiyUserEmail([
+                    Mail::to($request->data)->send(new VerfiyUserEmail([
                         'code' => $verificationCode,
                     ]));
                 }
@@ -140,7 +140,11 @@ class AuthController extends Controller
                     $user->active = '1';
                     $user->save();
                 }
-                return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
+                if ($request->from_register == 1) {
+                    return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
+                } else {
+                    return $this->returnSuccessRespose('Success', null, 200);
+                }
             } else {
                 return $this->returnErrorRespose('Invalid Code', 400);
             }
@@ -181,6 +185,23 @@ class AuthController extends Controller
             } else {
                 return $this->returnErrorRespose('Invalid Email', 400);
             }
+        } catch (Exception $e) {
+            return $this->returnErrorRespose($e->getMessage(), 500);
+        }
+    }
+
+    public function completeProfile(CompleteProfileRequest $request)
+    {
+        try {
+            $user = Auth('sanctum')->user();
+            $user = User::find($user->id)->with('interests', 'country')->first();
+            $user_interests = $request->interests;
+            $user->interests()->sync($user_interests);
+            $user->country_id = $request->country_id;
+            $user->gender = $request->gender;
+            $user->is_profile_completed = 1;
+            $user->save();
+            return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
         } catch (Exception $e) {
             return $this->returnErrorRespose($e->getMessage(), 500);
         }

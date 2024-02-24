@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('country_code')->nullable();
+            $table->boolean('is_profile_completed')->default(false);
         });
     }
 

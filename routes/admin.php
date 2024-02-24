@@ -24,5 +24,6 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/login', [AuthController::class, 'login']);
     route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('settings' , [SettingController::class, 'index']);
+        Route::post('update-settings' , [SettingController::class, 'update']);
     });
 });

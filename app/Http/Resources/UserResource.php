@@ -36,6 +36,10 @@ class UserResource extends JsonResource
             'uid' => $this->uid,
             'photo_url' => $this->photo_url,
             'is_verified' => $this->active == 1 ? true : false,
+            'country' => $this->whenLoaded('country', new CountriesResource($this->country)),
+            'interests' => InterestResource::collection($this->whenLoaded('interests')),
+            'gender' => $this->gender,
+            'is_profile_completed' => $this->is_profile_completed == 1 ? true : false,
         ];
     }
 }

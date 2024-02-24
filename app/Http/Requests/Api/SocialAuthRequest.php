@@ -21,7 +21,7 @@ class SocialAuthRequest extends BaseApiRequest
             'name' => 'required',
             'firebase_id_token' => 'required',
             'photo_url' => '',
-            'nonce' => 'required',
+            'nonce' => '',
         ];
     }
 }
