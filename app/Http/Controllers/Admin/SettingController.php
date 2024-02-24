@@ -25,7 +25,7 @@ class SettingController extends Controller
                 if (!isset($formattedData[$category])) {
                     $formattedData[$category] = [];
                 }
-                $formattedData[$category][] = [$key => $value];
+                $formattedData[$category][$key] = $value;
             }
             return $this->returnSuccessRespose('Success', $formattedData);
         } catch (\Throwable $th) {
