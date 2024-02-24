@@ -38,6 +38,7 @@ class User extends Authenticatable
         'nonce',
         'country_code',
         'country_id',
+        'gender',
 
     ];
 
@@ -67,5 +68,15 @@ class User extends Authenticatable
         return Attribute::make(
             set: fn (string $value) => rand(1000000000, 9999999999),
         );
+    }
+
+    public function interests()
+    {
+        return $this->belongsToMany(Interest::class, 'users_interests', 'user_id', 'interest_id');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
     }
 }

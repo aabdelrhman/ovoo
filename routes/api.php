@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\InterestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\CountriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('send-verification-code', 'sendResetPasswordEmail');
         Route::post('reset-password', 'resetPassword');
         Route::post('resend-verification-code', 'resendVerificationCode');
+        Route::post('complete-profile', 'completeProfile');
     });
     Route::get('settings', [SettingController::class, 'index']);
+    Route::get('interests', [InterestController::class, 'getAllInterests']);
+    Route::get('countries', [CountriesController::class, 'getAllCountries']);
 });
