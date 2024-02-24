@@ -87,11 +87,43 @@ class AuthController extends Controller
             if (!$user) {
                 User::create([
                     'phone' => $request->phone,
-                    'verification_code' => $smsCode
+                    'verification_code' => $smsCode,
+                    'country_code' => $request->country_code,
+                    'country_id' => $request->country_id
                 ]);
             }
             $smsService->sendSMS($request->phone, $smsCode);
             return $this->returnSuccessRespose('Success', null, 200);
+        } catch (Exception $e) {
+            return $this->returnErrorRespose($e->getMessage(), 500);
+        }
+    }
+
+    public function resendVerificationCode(Request $request, SmsService $smsService)
+    {
+        try {
+            $user = User::where('verification_code', $request->code)->Where(function ($q) use ($request) {
+                $q->where('email', $request->data)->orWhere('phone', $request->data);
+            })->first();
+            if ($user) {
+                if ($user->phone == $request->data) {
+                    $smsCode = generateSmsCode();
+                    $user->verification_code = $smsCode;
+                    $user->save();
+                    $smsService->sendSMS($request->phone, $smsCode);
+                } else if ($user->email == $request->data) {
+                    $verificationCode = generateEmailCode();
+                    $user->verification_code = $verificationCode;
+                    $user->save();
+                    Mail::to($request->email)->send(new VerfiyUserEmail([
+                        'code' => $verificationCode,
+                    ]));
+                }
+
+                return $this->returnSuccessRespose('Success', null, 200);
+            } else {
+                return $this->returnErrorRespose('Invalid Credentials', 400);
+            }
         } catch (Exception $e) {
             return $this->returnErrorRespose($e->getMessage(), 500);
         }

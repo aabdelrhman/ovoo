@@ -18,6 +18,8 @@ class LoginWithEmailRequest extends BaseApiRequest
             'email' => 'required|email|exists:users',
             // 'password' => ['required' ,Password::min(8)->mixedCase()->letters()->symbols()->numbers()],
             'password' => ['required'],
+            'country_code' => '',
+            'country_id' => ''
         ];
     }
 }

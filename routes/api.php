@@ -30,6 +30,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('social-auth', 'socialAuth');
         Route::post('send-verification-code', 'sendResetPasswordEmail');
         Route::post('reset-password', 'resetPassword');
+        Route::post('resend-verification-code', 'resendVerificationCode');
     });
     Route::get('settings', [SettingController::class, 'index']);
 });
