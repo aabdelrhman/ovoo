@@ -22,3 +22,10 @@ if (!function_exists('generateEmailCode')) {
         return rand(1000, 9999);
     }
 }
+
+if (!function_exists('isJson')) {
+    function isJson($value): bool
+    {
+        return is_string($value) && is_array(json_decode($value, true)) && (json_last_error() == JSON_ERROR_NONE);
+    }
+}

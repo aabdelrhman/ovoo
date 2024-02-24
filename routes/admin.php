@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
-use App\Models\Admin;
+use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'v1'], function () {
     Route::post('/login', [AuthController::class, 'login']);
-    Route::get('testt' , function(){
-        $admin = Admin::first();
-        dd($admin->getRoleNames());
-        dd($admin->permissions);
-    });
+    Route::get('settings' , [SettingController::class, 'index']);
 });

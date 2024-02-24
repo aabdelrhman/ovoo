@@ -13,6 +13,9 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
+        if(Role::where('name', 'super-admin')->exists()) {
+            return;
+        }
         $permissions = [
             [
                 'name' => 'show configurations',
