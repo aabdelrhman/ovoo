@@ -27,5 +27,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('signup-with-email', 'signUpWithEmail');
         Route::post('login-with-email', 'loginWithEmail');
         Route::post('social-auth', 'socialAuth');
+        Route::post('send-verification-code', 'sendResetPasswordEmail');
+        Route::post('reset-password', 'resetPassword');
     });
 });

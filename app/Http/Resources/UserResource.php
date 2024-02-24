@@ -35,6 +35,7 @@ class UserResource extends JsonResource
             'provider' => $this->provider,
             'uid' => $this->uid,
             'photo_url' => $this->photo_url,
+            'is_verified' => $this->active == 1 ? true : false,
         ];
     }
 }
