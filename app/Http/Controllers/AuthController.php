@@ -23,7 +23,6 @@ class AuthController extends Controller
     use ApiResponse;
     public function socialAuth(SocialAuthRequest $request)
     {
-        // dd($request->all());
         $user = User::where('email', $request->email)->first();
         if ($user) {
             $is_uid_correct = Hash::check($request->uid, $user->uid);
@@ -38,6 +37,7 @@ class AuthController extends Controller
                 'name' => $request->name,
                 'provider' => $request->provider,
                 'photo_url' => $request->photo_url,
+                'active' => '1',
             ]);
             $user->uid = Hash::make($request->uid);
             $user->save();
@@ -111,6 +111,43 @@ class AuthController extends Controller
                 return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
             } else {
                 return $this->returnErrorRespose('Invalid Code', 400);
+            }
+        } catch (Exception $e) {
+            return $this->returnErrorRespose($e->getMessage(), 500);
+        }
+    }
+
+    public function sendResetPasswordEmail(Request $request)
+    {
+        try {
+            $user = User::where('email', $request->email)->first();
+            if ($user) {
+                $verificationCode = generateEmailCode();
+                $user->verification_code = $verificationCode;
+                $user->save();
+                Mail::to($request->email)->send(new VerfiyUserEmail([
+                    'code' => $verificationCode,
+                ]));
+                return $this->returnSuccessRespose('Success', null, 200);
+            } else {
+                return $this->returnErrorRespose('Invalid Email', 400);
+            }
+        } catch (Exception $e) {
+            return $this->returnErrorRespose($e->getMessage(), 500);
+        }
+    }
+
+
+    public function resetPassword(Request $request)
+    {
+        try {
+            $user = User::where('email', $request->email)->first();
+            if ($user) {
+                $user->password = Hash::make($request->password);
+                $user->save();
+                return $this->returnSuccessRespose('Success', null, 200);
+            } else {
+                return $this->returnErrorRespose('Invalid Email', 400);
             }
         } catch (Exception $e) {
             return $this->returnErrorRespose($e->getMessage(), 500);
