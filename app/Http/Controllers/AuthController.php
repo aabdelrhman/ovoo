@@ -199,6 +199,7 @@ class AuthController extends Controller
             $user->interests()->sync($user_interests);
             $user->country_id = $request->country_id;
             $user->gender = $request->gender;
+            $user->date_of_birth = $request->date_of_birth;
             $user->is_profile_completed = 1;
             $user->save();
             return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
