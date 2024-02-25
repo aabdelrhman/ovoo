@@ -207,4 +207,31 @@ class AuthController extends Controller
             return $this->returnErrorRespose($e->getMessage(), 500);
         }
     }
+
+    public function editProfile(Request $request)
+    {
+        try {
+            $user = Auth('sanctum')->user();
+            $user = User::find($user->id)->with('interests', 'country')->first();
+            $user->user_name = $request->user_name;
+            $user->gender = $request->gender;
+            $user->date_of_birth = $request->date_of_birth;
+            $user->country_id = $request->country_id;
+            $user->save();
+            return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
+        } catch (Exception $e) {
+            return $this->returnErrorRespose($e->getMessage(), 500);
+        }
+    }
+
+    public function getProfile(Request $request)
+    {
+        try {
+            $user = Auth('sanctum')->user();
+            $user = User::find($user->id)->with('interests', 'country')->first();
+            return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
+        } catch (Exception $e) {
+            return $this->returnErrorRespose($e->getMessage(), 500);
+        }
+    }
 }

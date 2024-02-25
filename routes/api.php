@@ -34,6 +34,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('reset-password', 'resetPassword');
         Route::post('resend-verification-code', 'resendVerificationCode');
         Route::post('complete-profile', 'completeProfile');
+        Route::post('edit-profile', 'editProfile');
+        Route::get('get-profile', 'getProfile');
     });
     Route::get('settings', [SettingController::class, 'index']);
     Route::get('interests', [InterestController::class, 'getAllInterests']);
