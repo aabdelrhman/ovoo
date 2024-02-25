@@ -41,6 +41,7 @@ class User extends Authenticatable
         'gender',
         'is_profile_completed',
         'country_flag',
+        'date_of_birth',
 
     ];
 

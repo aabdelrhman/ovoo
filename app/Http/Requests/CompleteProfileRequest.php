@@ -25,6 +25,7 @@ class CompleteProfileRequest extends FormRequest
             'interests' => 'required|array',
             'country_id' => 'required|exists:countries,id',
             'gender' => 'required',
+            'date_of_birth' => 'required|date',
         ];
     }
 }
