@@ -40,6 +40,7 @@ class User extends Authenticatable
         'country_id',
         'gender',
         'is_profile_completed',
+        'country_flag',
 
     ];
 

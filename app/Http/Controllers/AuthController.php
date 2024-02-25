@@ -91,7 +91,7 @@ class AuthController extends Controller
                     'phone' => $request->phone,
                     'verification_code' => $smsCode,
                     'country_code' => $request->country_code,
-                    'country_id' => $request->country_id
+                    'country_flag' => $request->country_flag,
                 ]);
             }
             $smsService->sendSMS($request->phone, $smsCode);
