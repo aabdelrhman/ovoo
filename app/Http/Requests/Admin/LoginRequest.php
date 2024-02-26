@@ -15,7 +15,7 @@ class LoginRequest extends BaseApiRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|exists:admins,email',
+            'email' => 'required',
             'password' => 'required',
         ];
     }

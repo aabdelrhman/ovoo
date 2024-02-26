@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\FileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'v1'], function () {
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/upload-file', [FileController::class, 'uploadFile']);
     route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('settings' , [SettingController::class, 'index']);
         Route::post('update-settings' , [SettingController::class, 'update']);

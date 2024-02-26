@@ -1,6 +1,14 @@
 <?php
 
 if (!function_exists('image_resize_save')) {
+    function uploadImage($file , $path = 'images')
+    {
+        $path = $file->store('public/'.$path);
+        return $path;
+    }
+}
+
+if (!function_exists('image_resize_save')) {
     function image_resize_save($image, $path)
     {
         $filename = date('YmdHi') . str_replace(" ", "", $image->getClientOriginalName());
