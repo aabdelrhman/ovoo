@@ -13,8 +13,8 @@ class FileController extends Controller
     public function uploadFile(Request $request)
     {
         try {
-            $url = uploadImage($request->file('file'), 'uploads');
-            return $this->returnSuccessRespose('Success', ['url' => Storage::url($url)], 200);
+            $url = image_resize_save($request->file('file'), 'uploads');
+            return $this->returnSuccessRespose('Success', ['url' => asset('public/uploads/'.$url)], 200);
         } catch (Exception $e) {
             return $this->returnErrorRespose($e->getMessage(), 500);
         }
