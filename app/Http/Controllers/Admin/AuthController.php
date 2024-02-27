@@ -64,8 +64,6 @@ class AuthController extends Controller
     {
         try {
             $admin = Admin::where([['verification_code', $request->code] , ['email', $request->email]])->first();
-
-            dd($admin);
             if ($admin) {
                 $admin->password = Hash::make($request->password);
                 $admin->verification_code = null;
