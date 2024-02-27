@@ -24,6 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1'], function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/upload-file', [FileController::class, 'uploadFile']);
+    Route::post('/forget-password', [AuthController::class, 'forgetPassword']);
+    Route::post('/verify-code', [AuthController::class, 'verifyCode']);
+    Route::post('/reset-password', [AuthController::class, 'resetPassword']);
     route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('settings' , [SettingController::class, 'index']);
         Route::post('update-settings' , [SettingController::class, 'update']);
