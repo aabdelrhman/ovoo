@@ -14,7 +14,11 @@ class FileController extends Controller
     {
         try {
             $url = image_resize_save($request->file('file'), 'uploads');
-            return $this->returnSuccessRespose('Success', ['url' => asset('public/uploads/'.$url)], 200);
+            $data = [
+                'domain' => url('/'),
+                'path' => $url
+            ];
+            return $this->returnSuccessRespose('Success', $data, 200);
         } catch (Exception $e) {
             return $this->returnErrorRespose($e->getMessage(), 500);
         }

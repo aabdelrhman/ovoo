@@ -12,27 +12,29 @@ class SettingsSeeder extends Seeder
      */
     public function run(): void
     {
-        if (\App\Models\Setting::where('key', 'site_name')->exists()) {
+        if (\App\Models\Setting::count() > 0) {
             return;
         }
         \App\Models\Setting::insert([[
-            'key' => 'site_name',
+            'key' => 'site_name_ar',
             'category' => 'general',
-            'value' => json_encode([
-                'en' => 'Ovoo',
-                'ar' => 'Ovoo',
-            ])
-        ] , [
-            'key' => 'site_description',
+            'value' => "ovoo"
+        ] ,[
+            'key' => 'site_name_en',
             'category' => 'general',
-            'value' => json_encode([
-                'en' => 'Ovoo',
-                'ar' => 'Ovoo',
-            ])
+            'value' => "ovoo"
         ] , [
             'key' => 'site_logo',
             'category' => 'general',
             'value' => 'logo.png'
+        ] ,[
+            'key' => 'splash_logo',
+            'category' => 'general',
+            'value' => "logo.png"
+        ] ,[
+            'key' => 'splash_video',
+            'category' => 'general',
+            'value' => "logo.png"
         ] , [
             'key' => 'facebook',
             'category' => 'social',
@@ -53,14 +55,6 @@ class SettingsSeeder extends Seeder
             'key' => 'website',
             'category' => 'social',
             'value' => 'https://ovoo.app'
-        ] , [
-            'key' => 'splach_photo',
-            'category' => 'splach',
-            'value' => 'logo.png'
-        ] , [
-            'key' => 'splach_video',
-            'category' => 'splach',
-            'value' => 'logo.png'
         ] , [
             'key' => 'privacy_policy',
             'category' => 'app_rules',
