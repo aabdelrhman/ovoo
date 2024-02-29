@@ -9,4 +9,9 @@ class Interest extends Model
 {
     use HasFactory;
     protected $fillable = ['name'];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'users_interests', 'interest_id', 'user_id');
+    }
 }
