@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomLevelBackgroundController;
@@ -47,6 +48,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('room-levels', [RoomLevelController::class, 'index']);
         Route::get('level-backgrounds/{id}', [RoomLevelBackgroundController::class, 'index']);
         Route::post('create-room', [RoomController::class, 'store']);
+        Route::get('banners', [BannerController::class, 'index']);
     });
 
 });
