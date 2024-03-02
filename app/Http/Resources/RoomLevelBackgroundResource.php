@@ -16,7 +16,7 @@ class RoomLevelBackgroundResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image' => asset('public/uploads/'.$this->image)
+            'image' => asset($this->image)
         ];
     }
 }

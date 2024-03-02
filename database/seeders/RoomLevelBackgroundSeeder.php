@@ -17,11 +17,11 @@ class RoomLevelBackgroundSeeder extends Seeder
             return;
         }
         RoomLevelBackground::insert([
-            ['level_id' => 1, 'image' => "uploads/level_background1.png"],
-            ['level_id' => 2, 'image' => "uploads/level_background1.png"],
-            ['level_id' => 3, 'image' => "uploads/level_background1.png"],
-            ['level_id' => 4, 'image' => "uploads/level_background1.png"],
-            ['level_id' => 5, 'image' => "uploads/level_background1.png"],
+            ['level_id' => 1, 'image' => "public/uploads/level_background1.png"],
+            ['level_id' => 2, 'image' => "public/uploads/level_background1.png"],
+            ['level_id' => 3, 'image' => "public/uploads/level_background1.png"],
+            ['level_id' => 4, 'image' => "public/uploads/level_background1.png"],
+            ['level_id' => 5, 'image' => "public/uploads/level_background1.png"],
         ]);
     }
 }
