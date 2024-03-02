@@ -9,7 +9,7 @@ class UserResource extends JsonResource
 {
 
 
-    protected $includeToken;
+    protected $includeToken = 0;
 
     public function __construct($resource, $includeToken = false)
     {
@@ -29,14 +29,14 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'user_name' => $this->user_name,
-            $this->mergeWhen($this->includeToken, [
+            $this->mergeWhen($this->includeToken == 'useToken', [
                 'token' => $this->createToken('api')->plainTextToken,
             ]),
             'provider' => $this->provider,
             'uid' => $this->uid,
             'photo_url' => $this->photo_url,
             'is_verified' => $this->active == 1 ? true : false,
-            'country' => $this->whenLoaded('country', new CountriesResource($this->country)),
+            'country' => new CountriesResource($this->whenLoaded('country')),
             'interests' => InterestResource::collection($this->whenLoaded('interests')),
             'gender' => $this->gender,
             'is_profile_completed' => $this->is_profile_completed == 1 ? true : false,

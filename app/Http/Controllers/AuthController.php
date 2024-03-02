@@ -31,7 +31,7 @@ class AuthController extends Controller
             if (!$is_uid_correct) {
                 return $this->returnErrorRespose('Invalid Credentials', 404);
             } else {
-                return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
+                return $this->returnSuccessRespose('Success', new UserResource($user, 'useToken'), 200);
             }
         } else {
             $user = User::create([
@@ -43,7 +43,7 @@ class AuthController extends Controller
             ]);
             $user->uid = Hash::make($request->uid);
             $user->save();
-            return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
+            return $this->returnSuccessRespose('Success', new UserResource($user, 'useToken'), 200);
         }
     }
 
@@ -72,7 +72,7 @@ class AuthController extends Controller
         try {
             $user = User::where('email', $request->email)->first();
             if ($user && Hash::check($request->password, $user->password)) {
-                return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
+                return $this->returnSuccessRespose('Success', new UserResource($user, 'useToken'), 200);
             } else {
                 return $this->returnErrorRespose('Invalid Credentials', 401);
             }
@@ -141,7 +141,7 @@ class AuthController extends Controller
                     $user->save();
                 }
                 if ($request->from_register == 1) {
-                    return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
+                    return $this->returnSuccessRespose('Success', new UserResource($user, 'useToken'), 200);
                 } else {
                     return $this->returnSuccessRespose('Success', null, 200);
                 }
@@ -202,7 +202,7 @@ class AuthController extends Controller
             $user->date_of_birth = $request->date_of_birth;
             $user->is_profile_completed = 1;
             $user->save();
-            return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
+            return $this->returnSuccessRespose('Success', new UserResource($user, 'useToken'), 200);
         } catch (Exception $e) {
             return $this->returnErrorRespose($e->getMessage(), 500);
         }
@@ -218,7 +218,7 @@ class AuthController extends Controller
             $user->date_of_birth = $request->date_of_birth;
             $user->country_id = $request->country_id;
             $user->save();
-            return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
+            return $this->returnSuccessRespose('Success', new UserResource($user, 'useToken'), 200);
         } catch (Exception $e) {
             return $this->returnErrorRespose($e->getMessage(), 500);
         }
@@ -229,7 +229,7 @@ class AuthController extends Controller
         try {
             $user = Auth('sanctum')->user();
             $user = User::find($user->id)->with('interests', 'country')->first();
-            return $this->returnSuccessRespose('Success', new UserResource($user, true), 200);
+            return $this->returnSuccessRespose('Success', new UserResource($user, 'useToken'), 200);
         } catch (Exception $e) {
             return $this->returnErrorRespose($e->getMessage(), 500);
         }

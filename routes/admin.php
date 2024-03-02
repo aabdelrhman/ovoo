@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BannerController as AdminBannerController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\InterestController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\FileController;
@@ -42,5 +43,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::apiResource('countries', CountryController::class)->except('index');
         Route::get('banners', [BannerController::class, 'index']);
         Route::apiResource('banners', AdminBannerController::class)->except('index');
+        Route::apiResource('users', UserController::class);
     });
 });
