@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\CountriesController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\RoomLevelBackgroundController;
+use App\Http\Controllers\RoomLevelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +43,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('settings', [SettingController::class, 'index']);
     Route::get('interests', [InterestController::class, 'getAllInterests']);
     Route::get('countries', [CountriesController::class, 'getAllCountries']);
+    Route::group(['middleware' => 'auth:sanctum'], function() {
+        Route::get('room-levels', [RoomLevelController::class, 'index']);
+        Route::get('level-backgrounds/{id}', [RoomLevelBackgroundController::class, 'index']);
+        Route::post('create-room', [RoomController::class, 'store']);
+    });
+
 });

@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             RoleSeeder::class,
-            SettingsSeeder::class
+            SettingsSeeder::class,
+            RoomLevelSeeder::class,
+            RoomLevelBackgroundSeeder::class
         ]);
     }
 }
