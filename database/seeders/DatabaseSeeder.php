@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             SettingsSeeder::class,
             RoomLevelSeeder::class,
-            RoomLevelBackgroundSeeder::class
+            RoomLevelBackgroundSeeder::class,
+            BannerSeeder::class
         ]);
     }
 }

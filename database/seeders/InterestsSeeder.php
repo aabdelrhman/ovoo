@@ -12,7 +12,9 @@ class InterestsSeeder extends Seeder
      */
     public function run(): void
     {
-       
+        if (\App\Models\Interest::count() > 0) {
+            return;
+        }
         \App\Models\Interest::insert([
             ['name' => 'Action'],
             ['name' => 'Adventure'],
