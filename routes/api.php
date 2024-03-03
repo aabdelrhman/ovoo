@@ -7,6 +7,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CountriesController;
+use App\Http\Controllers\FollowerController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomLevelBackgroundController;
 use App\Http\Controllers\RoomLevelController;
@@ -49,6 +51,10 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('level-backgrounds/{id}', [RoomLevelBackgroundController::class, 'index']);
         Route::post('create-room', [RoomController::class, 'store']);
         Route::get('banners', [BannerController::class, 'index']);
+        Route::post('follow', [FollowerController::class, 'follow']);
+        Route::post('unfollow', [FollowerController::class, 'unFollow']);
+        Route::get('profile', [ProfileController::class, 'getProfile']);
+        Route::post('update-profile', [ProfileController::class, 'updateProfile']);
     });
 
 });
