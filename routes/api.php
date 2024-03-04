@@ -41,7 +41,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('send-verification-code', 'sendResetPasswordEmail');
         Route::post('reset-password', 'resetPassword');
         Route::post('resend-verification-code', 'resendVerificationCode');
-        Route::post('complete-profile', 'completeProfile');
         Route::post('edit-profile', 'editProfile');
         Route::get('get-profile', 'getProfile');
     });
@@ -49,6 +48,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('interests', [InterestController::class, 'getAllInterests']);
     Route::get('countries', [CountriesController::class, 'getAllCountries']);
     Route::group(['middleware' => 'auth:sanctum'], function() {
+        Route::post('complete-profile', [AuthController::class ,'completeProfile']);
         Route::get('room-levels', [RoomLevelController::class, 'index']);
         Route::get('level-backgrounds/{id}', [RoomLevelBackgroundController::class, 'index']);
         Route::post('create-room', [RoomController::class, 'store']);

@@ -27,12 +27,12 @@ class AuthController extends Controller
     {
         $user = User::where('email', $request->email)->first();
         if ($user) {
-            $is_uid_correct = Hash::check($request->uid, $user->uid);
-            if (!$is_uid_correct) {
-                return $this->returnErrorRespose('Invalid Credentials', 404);
-            } else {
+            // $is_uid_correct = Hash::check($request->uid, $user->uid);
+            // if (!$is_uid_correct) {
+            //     return $this->returnErrorRespose('Invalid Credentials', 404);
+            // } else {
                 return $this->returnSuccessRespose('Success', new UserResource($user, 'useToken'), 200);
-            }
+            // }
         } else {
             $user = User::create([
                 'email' => $request->email,
@@ -193,8 +193,7 @@ class AuthController extends Controller
     public function completeProfile(CompleteProfileRequest $request)
     {
         try {
-            $user = Auth('sanctum')->user();
-            $user = User::find($user->id)->with('interests', 'country')->first();
+            $user = User::with('interests', 'country')->find(auth('sanctum')->user()->id);
             $user_interests = $request->interests;
             $user->interests()->sync($user_interests);
             $user->country_id = $request->country_id;
