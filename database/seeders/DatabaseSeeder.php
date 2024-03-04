@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             SettingsSeeder::class,
             RoomLevelSeeder::class,
             RoomLevelBackgroundSeeder::class,
-            BannerSeeder::class
+            BannerSeeder::class,
+            GiftsSeeder::class
         ]);
     }
 }

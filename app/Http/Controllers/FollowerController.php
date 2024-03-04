@@ -13,7 +13,7 @@ class FollowerController extends Controller
     public function follow(FollowRequest $request){
         try {
             $data = $request->validated();
-            User::find(auth()->user()->id)->followers()->sync($data);
+            User::find(auth()->user()->id)->followings()->create($data);
             return $this->returnSuccessRespose('Success');
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
@@ -23,7 +23,7 @@ class FollowerController extends Controller
     public function unFollow(FollowRequest $request){
         try {
             $data = $request->validated();
-            User::find(auth()->user()->id)->followers()->detach($data);
+            User::find(auth()->user()->id)->followings()->detach($data);
             return $this->returnSuccessRespose('Success');
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);

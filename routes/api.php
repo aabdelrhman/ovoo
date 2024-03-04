@@ -8,8 +8,10 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\FollowerController;
+use App\Http\Controllers\GiftController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\RoomGiftController;
 use App\Http\Controllers\RoomLevelBackgroundController;
 use App\Http\Controllers\RoomLevelController;
 
@@ -55,6 +57,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('unfollow', [FollowerController::class, 'unFollow']);
         Route::get('profile', [ProfileController::class, 'getProfile']);
         Route::post('update-profile', [ProfileController::class, 'updateProfile']);
+        Route::post('sent-gift' , [RoomGiftController::class , 'sentGift']);
+        Route::get('gifts-by-type/{id}' , [GiftController::class , 'index']);
+        Route::get('gift-types' , [GiftController::class , 'giftTypes']);
     });
 
 });

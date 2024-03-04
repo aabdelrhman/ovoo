@@ -42,8 +42,8 @@ class UserResource extends JsonResource
             'is_profile_completed' => $this->is_profile_completed == 1 ? true : false,
             'followers_count' => $this->followers_count ?? 0,
             'followings_count' => $this->followings_count ?? 0,
-            "gifts_sent" => 0,
-            "gifts_received" => 0
+            "gift_sents_count" => $this->gift_sents_count ?? 0,
+            "gift_receiveds_count" => $this->gift_receiveds_count ?? 0
         ];
     }
 }

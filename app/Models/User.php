@@ -85,10 +85,25 @@ class User extends Authenticatable
 
     public function followers(){
 
-        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+        return $this->belongsToMany(User::class, 'followers', 'following_id', 'user_id');
     }
 
     public function followings(){
-        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'following_id');
+    }
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
+
+    public function giftSents()
+    {
+        return $this->hasMany(RoomGift::class, 'user_id');
+    }
+
+    public function giftReceiveds()
+    {
+        return $this->hasMany(RoomGift::class, 'room_creater_id');
     }
 }
