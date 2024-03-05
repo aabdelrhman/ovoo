@@ -55,11 +55,12 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('banners', [BannerController::class, 'index']);
         Route::post('follow', [FollowerController::class, 'follow']);
         Route::post('unfollow', [FollowerController::class, 'unFollow']);
-        Route::get('profile', [ProfileController::class, 'getProfile']);
+        Route::get('profile/{id}', [ProfileController::class, 'getProfile']);
         Route::post('update-profile', [ProfileController::class, 'updateProfile']);
         Route::post('sent-gift' , [RoomGiftController::class , 'sentGift']);
         Route::get('gifts-by-type/{id}' , [GiftController::class , 'index']);
         Route::get('gift-types' , [GiftController::class , 'giftTypes']);
+        Route::get('user-supporters/{id}' , [ProfileController::class , 'userSupporters']);
     });
 
 });

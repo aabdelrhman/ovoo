@@ -40,6 +40,8 @@ class AuthController extends Controller
                 'provider' => $request->provider,
                 'photo_url' => $request->photo_url,
                 'active' => '1',
+                'current_rank_id' => 1,
+                'next_rank_id' => 2,
             ]);
             $user->uid = Hash::make($request->uid);
             $user->save();
@@ -56,7 +58,9 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'name' => $username,
                 'password' => Hash::make($request->password),
-                'verification_code' => $verificationCode
+                'verification_code' => $verificationCode,
+                'current_rank_id' => 1,
+                'next_rank_id' => 2,
             ]);
             Mail::to($request->email)->send(new VerfiyUserEmail([
                 'code' => $verificationCode,
@@ -92,6 +96,8 @@ class AuthController extends Controller
                     'verification_code' => $smsCode,
                     'country_code' => $request->country_code,
                     'country_flag' => $request->country_flag,
+                    'current_rank_id' => 1,
+                    'next_rank_id' => 2,
                 ]);
             }
             $smsService->sendSMS($request->phone, $smsCode);

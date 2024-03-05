@@ -106,4 +106,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(RoomGift::class, 'room_creater_id');
     }
+
+    public function currentRank()
+    {
+        return $this->belongsTo(Rank::class , 'current_rank_id');
+    }
+
+    public function nextRank()
+    {
+        return $this->belongsTo(Rank::class , 'next_rank_id');
+    }
 }

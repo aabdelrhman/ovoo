@@ -11,10 +11,23 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     use ApiResponse;
-    public function getProfile(){
+    public function getProfile($id){
         try {
-            $data = User::withCount('followers' , 'followings' , 'giftSents' , 'giftReceiveds')->findOrFail(auth()->user()->id);
+            $data = User::with('giftReceiveds' , 'currentRank' , 'nextRank')->withCount('followers' , 'followings' , 'giftSents' , 'giftReceiveds')->findOrFail($id);
             return $this->returnSuccessRespose('Success' , new UserResource($data));
+        } catch (\Throwable $th) {
+            return $this->returnErrorRespose($th->getMessage(), 500);
+        }
+    }
+
+    public function userSupporters($id){
+        try {
+            $users = User::whereIn('id', function ($query) use ($id) {
+                $query->select('user_id')
+                    ->from('room_gifts')
+                    ->where('room_creater_id', $id);
+            })->select('name' , 'photo_url')->get();
+            return $this->returnSuccessRespose('Success' , $users);
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
         }
@@ -28,4 +41,6 @@ class ProfileController extends Controller
             return $this->returnErrorRespose($th->getMessage(), 500);
         }
     }
+
+
 }

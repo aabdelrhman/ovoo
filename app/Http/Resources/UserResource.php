@@ -43,7 +43,12 @@ class UserResource extends JsonResource
             'followers_count' => $this->followers_count ?? 0,
             'followings_count' => $this->followings_count ?? 0,
             "gift_sents_count" => $this->gift_sents_count ?? 0,
-            "gift_receiveds_count" => $this->gift_receiveds_count ?? 0
+            "gift_receiveds_count" => $this->gift_receiveds_count ?? 0,
+            "rank" => [
+                "current_rank" => new RankResource($this->whenLoaded('currentRank')),
+                "next_rank" => new RankResource($this->whenLoaded('nextRank')),
+                "rank_progress" => 0,
+            ]
         ];
     }
 }
