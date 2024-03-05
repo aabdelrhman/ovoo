@@ -23,6 +23,6 @@ class RankSeeder extends Seeder
             ['name' => 'Diamond'],
             ['name' => 'Crown'],
             ['name' => 'Crown Plus'],
-        ])
+        ]);
     }
 }
