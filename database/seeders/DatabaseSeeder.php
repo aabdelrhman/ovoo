@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             RoomLevelSeeder::class,
             RoomLevelBackgroundSeeder::class,
             BannerSeeder::class,
-            GiftsSeeder::class
+            GiftsSeeder::class,
+            RankSeeder::class,
         ]);
     }
 }
