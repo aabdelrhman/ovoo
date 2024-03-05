@@ -42,6 +42,8 @@ class User extends Authenticatable
         'is_profile_completed',
         'country_flag',
         'date_of_birth',
+        'current_rank_id',
+        'next_rank_id'
 
     ];
 
