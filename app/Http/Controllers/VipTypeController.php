@@ -15,7 +15,7 @@ class VipTypeController extends Controller
     public function index()
     {
         try {
-            $vipTypes = VipTypeResource::collection(VipType::active()->get());
+            $vipTypes = VipTypeResource::collection(VipType::active()->get())->append('total_count_identifications');
             return $this->returnSuccessRespose('Success', $vipTypes);
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
