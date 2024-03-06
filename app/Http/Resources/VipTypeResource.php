@@ -20,6 +20,8 @@ class VipTypeResource extends JsonResource
             'description' => $this->description,
             'image' => asset($this->image),
             'active' => $this->active,
+            'total_identifications' => $this->total_identifications ?? 0,
+            'total_exclusive' => $this->total_exclusive ?? 0,
             'price_in_month' => number_format($this->price_in_month, 2, '.', ''),
             'identifications' => IdentificationResource::collection($this->whenLoaded('vipTypeIdentifications')),
             'exclusive_privileges' => ExclusivePrivilegeResource::collection($this->whenLoaded('vipTypeExclusivePrivileges'))
