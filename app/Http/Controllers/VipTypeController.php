@@ -15,7 +15,7 @@ class VipTypeController extends Controller
     public function index()
     {
         try {
-            $vipTypes = VipTypeResource::collection(VipType::active()->get());
+            $vipTypes = VipTypeResource::collection(VipType::active()->get())->additional(['message' => 'Success']);
             return $this->returnSuccessRespose('Success', $vipTypes);
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
@@ -24,7 +24,7 @@ class VipTypeController extends Controller
 
     public function show($id){
         try {
-            $vipType = (new VipTypeResource(VipType::with('vipTypeIdentifications' , 'vipTypeExclusivePrivileges')->find($id)))->append('total_count_identifications');
+            $vipType = new VipTypeResource(VipType::with('vipTypeIdentifications' , 'vipTypeExclusivePrivileges')->find($id));
             return $this->returnSuccessRespose('Success', $vipType);
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
