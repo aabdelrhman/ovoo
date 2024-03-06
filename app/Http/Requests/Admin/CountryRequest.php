@@ -11,6 +11,7 @@ class CountryRequest extends BaseApiRequest
         return [
             'name' => 'required|string',
             'code' => 'required|string',
+            'active' => 'boolean'
         ];
     }
 }

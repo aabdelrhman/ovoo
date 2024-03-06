@@ -10,6 +10,7 @@ class InterestRequest extends BaseApiRequest
     {
         return [
             'name' => 'required|string',
+            'active' => 'boolean'
         ];
     }
 }

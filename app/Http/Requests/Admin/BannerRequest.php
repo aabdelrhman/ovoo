@@ -13,6 +13,7 @@ class BannerRequest extends BaseApiRequest
             'title' => 'nullable',
             'image' => 'required',
             'url' => 'nullable',
+            'status' => 'nullable|in:1,0'
         ];
     }
 }
