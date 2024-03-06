@@ -14,6 +14,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomGiftController;
 use App\Http\Controllers\RoomLevelBackgroundController;
 use App\Http\Controllers\RoomLevelController;
+use App\Http\Controllers\VipTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('gifts-by-type/{id}' , [GiftController::class , 'index']);
         Route::get('gift-types' , [GiftController::class , 'giftTypes']);
         Route::get('user-supporters/{id}' , [ProfileController::class , 'userSupporters']);
+        Route::apiResource('vip-types', VipTypeController::class)->only(['index', 'show']);
     });
 
 });

@@ -48,7 +48,8 @@ class UserResource extends JsonResource
                 "current_rank" => new RankResource($this->whenLoaded('currentRank')),
                 "next_rank" => new RankResource($this->whenLoaded('nextRank')),
                 "rank_progress" => 0,
-            ]
+            ],
+            "vip_type" => new VipTypeResource($this->whenLoaded('vipType'))
         ];
     }
 }

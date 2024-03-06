@@ -43,8 +43,8 @@ class User extends Authenticatable
         'country_flag',
         'date_of_birth',
         'current_rank_id',
-        'next_rank_id'
-
+        'next_rank_id',
+        'vip_type_id'
     ];
 
     /**
@@ -117,5 +117,10 @@ class User extends Authenticatable
     public function nextRank()
     {
         return $this->belongsTo(Rank::class , 'next_rank_id');
+    }
+
+    public function vipType()
+    {
+        return $this->belongsTo(VipType::class , 'vip_type_id');
     }
 }
