@@ -5,12 +5,14 @@ use App\Http\Controllers\Admin\BannerController as AdminBannerController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\InterestController;
 use App\Http\Controllers\Admin\PackageController;
+use App\Http\Controllers\Admin\RoomLevelController as AdminRoomLevelController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\InterestController as ControllersInterestController;
+use App\Http\Controllers\RoomLevelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -46,5 +48,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::apiResource('banners', AdminBannerController::class)->except('index');
         Route::apiResource('users', UserController::class);
         Route::apiResource('packages', PackageController::class);
+        Route::get('room-levels', [RoomLevelController::class, 'index']);
+        Route::apiResource('room-levels', AdminRoomLevelController::class)->except('index');
     });
 });

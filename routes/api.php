@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\InterestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::post('complete-profile', [AuthController::class ,'completeProfile']);
         Route::get('room-levels', [RoomLevelController::class, 'index']);
+        Route::get('packages', [PackageController::class, 'index']);
         Route::get('level-backgrounds/{id}', [RoomLevelBackgroundController::class, 'index']);
         Route::post('create-room', [RoomController::class, 'store']);
         Route::get('banners', [BannerController::class, 'index']);
