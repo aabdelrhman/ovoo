@@ -22,4 +22,16 @@ class RoomController extends Controller
             return $this->returnErrorRespose($th->getMessage(), 500);
         }
     }
+
+
+    public function joinToRoom(Request $request)
+    {
+        try {
+            $room = Room::findOrFail($request->id);
+            $room->users()->attach(auth()->user()->id);
+            return $this->returnSuccessRespose('Success');
+        } catch (\Throwable $th) {
+            return $this->returnErrorRespose($th->getMessage(), 500);
+        }
+    }
 }

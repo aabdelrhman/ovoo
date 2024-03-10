@@ -3,10 +3,12 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BannerController as AdminBannerController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\GiftController;
 use App\Http\Controllers\Admin\InterestController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\RoomLevelController as AdminRoomLevelController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\GiftTypeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CountriesController;
@@ -50,5 +52,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::apiResource('packages', PackageController::class);
         Route::get('room-levels', [RoomLevelController::class, 'index']);
         Route::apiResource('room-levels', AdminRoomLevelController::class)->except('index');
+        Route::apiResource('categories', GiftTypeController::class);
+        Route::apiResource('products', GiftController::class);
     });
 });
