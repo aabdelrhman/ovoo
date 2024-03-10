@@ -23,6 +23,16 @@ class RoomController extends Controller
         }
     }
 
+    public function roomDetails($id){
+        try {
+            $room = Room::with('users' , 'gifts')->findOrFail($id);
+            $room->users()->attach(auth()->user()->id);
+            return $this->returnSuccessRespose('Success' , new RoomResource($room));
+        } catch (\Throwable $th) {
+            return $this->returnErrorRespose($th->getMessage(), 500);
+        }
+    }
+
 
     public function joinToRoom(Request $request)
     {
