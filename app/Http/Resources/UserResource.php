@@ -44,17 +44,17 @@ class UserResource extends JsonResource
             'is_profile_completed' => $this->is_profile_completed == 1 ? true : false,
             'followers_count' => $this->followers_count ?? 0,
             'followings_count' => $this->followings_count ?? 0,
-            "gift_sents_count" => $this->gift_sents_count ?? 0,
-            "gift_receiveds_count" => $this->gift_receiveds_count ?? 0,
-            'gift_sents' => GiftResource::collection($this->whenLoaded('giftSents')),
-            'gift_receiveds' => GiftResource::collection($this->whenLoaded('giftReceiveds')),
+            "gifts_send_count" => $this->gift_sents_count ?? 0,
+            "gifts_received_count" => $this->gift_receiveds_count ?? 0,
+            'gifts_send' => GiftResource::collection($this->whenLoaded('giftSents')),
+            'gifts_received' => GiftResource::collection($this->whenLoaded('giftReceiveds')),
             "rank" => [
                 "current_rank" => new RankResource($this->whenLoaded('currentRank')),
                 "next_rank" => new RankResource($this->whenLoaded('nextRank')),
                 "rank_progress" => 0,
             ],
             "vip_type" => new VipTypeResource($this->whenLoaded('vipType')),
-            "is_follow" => auth()->user() ? ($this->isFollowing(Auth::user()) ? 1 : 0) : 0
+            "is_follow" => auth()->user() ? ($this->isFollowing(Auth::user()->id) ? 1 : 0) : 0
         ];
     }
 }
