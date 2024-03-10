@@ -123,4 +123,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(VipType::class , 'vip_type_id');
     }
+
+    public function isFollowing(User $user)
+    {
+        // dd($this->followers()->get());
+        return $this->followers()->where('users.id', $user->id)->exists();
+    }
 }

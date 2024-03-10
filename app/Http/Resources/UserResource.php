@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class UserResource extends JsonResource
 {
@@ -49,7 +50,8 @@ class UserResource extends JsonResource
                 "next_rank" => new RankResource($this->whenLoaded('nextRank')),
                 "rank_progress" => 0,
             ],
-            "vip_type" => new VipTypeResource($this->whenLoaded('vipType'))
+            "vip_type" => new VipTypeResource($this->whenLoaded('vipType')),
+            "is_follow" => auth()->user() ? ($this->isFollowing(Auth::user()) ? 1 : 0) : 0
         ];
     }
 }
