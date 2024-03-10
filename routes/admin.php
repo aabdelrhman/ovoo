@@ -53,6 +53,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('room-levels', [RoomLevelController::class, 'index']);
         Route::apiResource('room-levels', AdminRoomLevelController::class)->except('index');
         Route::apiResource('categories', GiftTypeController::class);
-        Route::apiResource('products', GiftController::class);
+        Route::apiResource('products', GiftController::class)->except('destroy');
     });
 });
