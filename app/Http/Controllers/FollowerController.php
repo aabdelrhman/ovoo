@@ -13,7 +13,10 @@ class FollowerController extends Controller
     public function follow(FollowRequest $request){
         try {
             $data = $request->validated();
-            User::find(auth()->user()->id)->followings()->create($data);
+            $user =User::find(auth()->user()->id);
+            $userIsFollowing = $user->isFollowed($data['user_id']);
+            if(!$userIsFollowing)
+                $user->followings()->attach(['following_id' => $data['user_id']]);
             return $this->returnSuccessRespose('Success');
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
