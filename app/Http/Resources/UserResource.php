@@ -30,6 +30,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'user_name' => $this->user_name,
+            'date_of_birth' => $this->date_of_birth,
             $this->mergeWhen($this->includeToken == 'useToken', [
                 'token' => $this->createToken('api')->plainTextToken,
             ]),
@@ -45,6 +46,8 @@ class UserResource extends JsonResource
             'followings_count' => $this->followings_count ?? 0,
             "gift_sents_count" => $this->gift_sents_count ?? 0,
             "gift_receiveds_count" => $this->gift_receiveds_count ?? 0,
+            'gift_sents' => GiftResource::collection($this->whenLoaded('giftSents')),
+            'gift_receiveds' => GiftResource::collection($this->whenLoaded('giftReceiveds')),
             "rank" => [
                 "current_rank" => new RankResource($this->whenLoaded('currentRank')),
                 "next_rank" => new RankResource($this->whenLoaded('nextRank')),

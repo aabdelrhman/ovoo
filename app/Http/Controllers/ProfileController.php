@@ -13,7 +13,7 @@ class ProfileController extends Controller
     use ApiResponse;
     public function getProfile($id){
         try {
-            $data = User::with('giftReceiveds' , 'currentRank' , 'nextRank')->withCount('followers' , 'followings' , 'giftSents' , 'giftReceiveds')->findOrFail($id);
+            $data = User::with('giftReceiveds' , 'giftSents', 'currentRank' , 'nextRank' , 'country')->withCount('followers' , 'followings' , 'giftSents' , 'giftReceiveds')->findOrFail($id);
             return $this->returnSuccessRespose('Success' , new UserResource($data));
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
