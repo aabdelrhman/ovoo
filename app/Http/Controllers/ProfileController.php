@@ -26,7 +26,7 @@ class ProfileController extends Controller
                 $query->select('user_id')
                     ->from('room_gifts')
                     ->where('room_creater_id', $id);
-            })->select('name' , 'photo_url')->get();
+            })->select('id','name' ,'user_name', 'photo_url')->get();
             return $this->returnSuccessRespose('Success' , $users);
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
