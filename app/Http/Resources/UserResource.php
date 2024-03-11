@@ -46,8 +46,8 @@ class UserResource extends JsonResource
             'followings_count' => $this->followings_count ?? 0,
             "gifts_send_count" => $this->gift_sents_count ?? 0,
             "gifts_received_count" => $this->gift_receiveds_count ?? 0,
-            'gifts_send' => GiftResource::collection($this->whenLoaded('giftSents')),
-            'gifts_received' => GiftResource::collection($this->whenLoaded('giftReceiveds')),
+            'gifts_send' => GiftResource::collection($this->whenLoaded('giftSents'))  ?? null,
+            'gifts_received' => GiftResource::collection($this->whenLoaded('giftReceiveds')) ?? null,
             "rank" => [
                 "current_rank" => new RankResource($this->whenLoaded('currentRank')),
                 "next_rank" => new RankResource($this->whenLoaded('nextRank')),

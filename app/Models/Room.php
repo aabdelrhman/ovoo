@@ -27,6 +27,16 @@ class Room extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'room_users', 'room_id', 'user_id');
+    }
+
+    public function gifts(){
+
+        return $this->belongsToMany(Gift::class, 'room_gifts', 'room_id', 'gift_id');
+    }
+
     public function interest()
     {
         return $this->belongsTo(Interest::class);

@@ -24,7 +24,10 @@ class RoomResource extends JsonResource
             'level' => new RoomLevelResource($this->whenLoaded('level')),
             'level_background' => new RoomLevelBackgroundResource($this->whenLoaded('levelBackground')),
             'interest' => new InterestResource($this->whenLoaded('interest')),
-            'user' => new UserResource($this->whenLoaded('user')),
+            'owner' => new UserResource($this->whenLoaded('user')),
+            'users' => UserResource::collection($this->whenLoaded('users')),
+            'gifts' => GiftResource::collection($this->whenLoaded('gifts')),
+            'created_at' => $this->created_at->diffForHumans(),
         ];
     }
 }

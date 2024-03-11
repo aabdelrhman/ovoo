@@ -9,6 +9,8 @@ class RoomUser extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id', 'room_id'];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -19,5 +21,5 @@ class RoomUser extends Model
         return $this->belongsTo(Room::class, 'room_id');
     }
 
-    
+
 }

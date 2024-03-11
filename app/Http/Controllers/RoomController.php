@@ -25,9 +25,21 @@ class RoomController extends Controller
 
     public function roomDetails($id){
         try {
-            $room = Room::with('users' , 'gifts')->findOrFail($id);
-            $room->users()->attach(auth()->user()->id);
+            $room = Room::with('gifts' , 'levelBackground')->findOrFail($id);
+            if(!$room->users()->where('users.id' , auth()->user()->id)->exists() && $room->user_id != auth()->user()->id)
+                    $room->users()->attach(auth()->user()->id);
+            $room->load('users' , 'user');
             return $this->returnSuccessRespose('Success' , new RoomResource($room));
+        } catch (\Throwable $th) {
+            return $this->returnErrorRespose($th->getMessage(), 500);
+        }
+    }
+
+    public function leaveRoom(Request $request){
+        try {
+            $room = Room::findOrFail($request->room_id);
+            $room->users()->detach(auth()->user()->id);
+            return $this->returnSuccessRespose('Success');
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
         }

@@ -66,6 +66,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('user-supporters/{id}' , [ProfileController::class , 'userSupporters']);
         Route::apiResource('vip-types', VipTypeController::class)->only(['index', 'show']);
         Route::get('room-details/{id}' , [RoomController::class , 'roomDetails']);
+        Route::post('leave-room' , [RoomController::class , 'leaveRoom']);
     });
 
 });
