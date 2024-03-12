@@ -133,4 +133,9 @@ class User extends Authenticatable
     {
         return $this->followings()->where('users.id', $id)->exists();
     }
+
+    public function medals()
+    {
+        return $this->belongsToMany(Medal::class, 'user_medals', 'user_id', 'medal_id');
+    }
 }

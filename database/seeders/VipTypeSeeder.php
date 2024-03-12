@@ -21,13 +21,13 @@ class VipTypeSeeder extends Seeder
         if (VipType::count() > 0) {
             return;
         }
-        // DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        // VipTypeIdentification::truncate();
-        // VipTypeExclusivePrivilege::truncate();
-        // VipType::truncate();
-        // Identification::truncate();
-        // ExclusivePrivilege::truncate();
-        // DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        VipTypeIdentification::truncate();
+        VipTypeExclusivePrivilege::truncate();
+        VipType::truncate();
+        Identification::truncate();
+        ExclusivePrivilege::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
         VipType::insert([
             [
                 'name' => 'Vip1',

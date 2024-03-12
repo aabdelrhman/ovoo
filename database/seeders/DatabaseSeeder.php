@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             BannerSeeder::class,
             GiftsSeeder::class,
             RankSeeder::class,
-            VipTypeSeeder::class
+            VipTypeSeeder::class,
+            MedalTypesSeeder::class,
         ]);
     }
 }

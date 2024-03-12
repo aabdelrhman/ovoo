@@ -10,11 +10,14 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\GiftController;
+use App\Http\Controllers\MedalController;
+use App\Http\Controllers\MedalTypeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomGiftController;
 use App\Http\Controllers\RoomLevelBackgroundController;
 use App\Http\Controllers\RoomLevelController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VipTypeController;
 
 /*
@@ -67,6 +70,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::apiResource('vip-types', VipTypeController::class)->only(['index', 'show']);
         Route::get('room-details/{id}' , [RoomController::class , 'roomDetails']);
         Route::post('leave-room' , [RoomController::class , 'leaveRoom']);
+        Route::get('medal-types' , [MedalTypeController::class , 'index']);
+        Route::get('medals/{id}' , [MedalController::class , 'index']);
+        Route::get('user-medals/{id}' , [UserController::class , 'medals']);
     });
 
 });
