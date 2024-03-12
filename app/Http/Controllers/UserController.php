@@ -19,4 +19,24 @@ class UserController extends Controller
             return $this->returnErrorRespose($th->getMessage(), 500);
         }
     }
+
+    public function blockUser($id){
+        try {
+            $user = User::with('blockedUsers')->find(auth()->user()->id);
+            if(!$user->isBlocked($id))
+                    $user->blockedUsers()->attach($id);
+            return $this->returnSuccessRespose('Success');
+        } catch (\Throwable $th) {
+            return $this->returnErrorRespose($th->getMessage(), 500);
+        }
+    }
+
+    public function unBlockUser($id){
+        try {
+            User::find(auth()->user()->id)->blockedUsers()->detach($id);
+            return $this->returnSuccessRespose('Success');
+        } catch (\Throwable $th) {
+            return $this->returnErrorRespose($th->getMessage(), 500);
+        }
+    }
 }

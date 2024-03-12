@@ -138,4 +138,18 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Medal::class, 'user_medals', 'user_id', 'medal_id');
     }
+
+    public function blockedUsers()
+    {
+        return $this->belongsToMany(User::class, 'blocked_users', 'user_id', 'blocked_user_id');
+    }
+
+    public function userBlocked(){
+        return $this->belongsToMany(User::class, 'blocked_users', 'blocked_user_id', 'user_id');
+    }
+
+    public function isBlocked($id)
+    {
+        return $this->blockedUsers()->where('users.id', $id)->exists();
+    }
 }

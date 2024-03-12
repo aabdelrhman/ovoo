@@ -73,6 +73,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('medal-types' , [MedalTypeController::class , 'index']);
         Route::get('medals/{id}' , [MedalController::class , 'index']);
         Route::get('user-medals/{id}' , [UserController::class , 'medals']);
+        Route::post('block-user/{id}' , [UserController::class , 'blockUser']);
+        Route::post('unblock-user/{id}' , [UserController::class , 'unBlockUser']);
     });
 
 });

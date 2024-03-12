@@ -54,7 +54,8 @@ class UserResource extends JsonResource
                 "rank_progress" => 0,
             ],
             "vip_type" => new VipTypeResource($this->whenLoaded('vipType')),
-            "is_follow" => auth()->user() ? ($this->isFollowing(Auth::user()->id) ? 1 : 0) : 0
+            "is_follow" => auth()->user() ? ($this->isFollowing(Auth::user()->id) ? 1 : 0) : 0,
+            'is_blocked' => auth()->user() ? (auth()->user()->isBlocked($this->id) ? 1 : 0) : 0,
         ];
     }
 }
