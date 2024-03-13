@@ -56,7 +56,8 @@ class UserResource extends JsonResource
             ],
             "vip_type" => new VipTypeResource($this->whenLoaded('vipType')),
             "is_follow" => auth()->user() ? ($this->isFollowing(Auth::user()->id) ? 1 : 0) : 0,
-            'is_blocked' => auth()->user() ? (auth()->user()->isBlocked($this->id) ? 1 : 0) : 0,
+            'is_blocked_by_me' => auth()->user() ? (auth()->user()->isBlocked($this->id) ? 1 : 0) : 0,
+            'is_blocked_by_user' => auth()->user() ? (auth()->user()->isBlockedMe($this->id) ? 1 : 0) : 0,
         ];
     }
 }
