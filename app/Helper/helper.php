@@ -13,7 +13,7 @@ if (!function_exists('image_resize_save')) {
     {
         $filename = date('YmdHi') . str_replace(" ", "", $image->getClientOriginalName());
         $image->move(public_path($path), $filename);
-        return $filename;
+        return $path.'/' .$filename;
     }
 }
 
