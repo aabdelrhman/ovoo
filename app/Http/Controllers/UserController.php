@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\MedalResource;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -35,6 +36,19 @@ class UserController extends Controller
         try {
             User::find(auth()->user()->id)->blockedUsers()->detach($id);
             return $this->returnSuccessRespose('Success');
+        } catch (\Throwable $th) {
+            return $this->returnErrorRespose($th->getMessage(), 500);
+        }
+    }
+
+    public function userCbs($id){
+        try {
+            $user = User::whereHas('giftSents' , function($q) use ($id){
+                $q->where('room_creater_id' , $id)->whereHas('giftType' , function($q){
+                    $q->where('is_cb', 1);
+                });
+            })->get();
+            return $this->returnSuccessRespose('Success', UserResource::collection($user));
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
         }

@@ -101,12 +101,24 @@ class User extends Authenticatable
 
     public function giftSents()
     {
-        return $this->hasMany(RoomGift::class, 'user_id');
+        return $this->belongsToMany(Gift::class, 'room_gifts', 'user_id', 'gift_id');
+        // return $this->hasMany(RoomGift::class, 'user_id');
+    }
+
+    public function giftSentUsers(){
+
+        return $this->belongsToMany(User::class, 'room_gifts', 'user_id', 'room_creater_id');
     }
 
     public function giftReceiveds()
     {
-        return $this->hasMany(RoomGift::class, 'room_creater_id');
+        return $this->belongsToMany(Gift::class, 'room_gifts', 'room_creater_id', 'gift_id');
+        // return $this->hasMany(RoomGift::class, 'room_creater_id');
+    }
+
+    public function giftReceivedsUsers(){
+
+        return $this->belongsToMany(User::class, 'room_gifts', 'room_creater_id', 'user_id');
     }
 
     public function currentRank()
@@ -152,4 +164,6 @@ class User extends Authenticatable
     {
         return $this->blockedUsers()->where('users.id', $id)->exists();
     }
+
+
 }

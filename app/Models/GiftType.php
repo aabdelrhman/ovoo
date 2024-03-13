@@ -12,4 +12,9 @@ class GiftType extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function scopeIsCp($builder)
+    {
+        return $builder->where('isCp', 1);
+    }
 }

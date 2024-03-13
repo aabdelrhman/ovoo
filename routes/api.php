@@ -75,6 +75,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('user-medals/{id}' , [UserController::class , 'medals']);
         Route::post('block-user/{id}' , [UserController::class , 'blockUser']);
         Route::post('unblock-user/{id}' , [UserController::class , 'unBlockUser']);
+        Route::get('user-cbs/{id}' , [UserController::class , 'userCbs']);
     });
 
 });
