@@ -58,6 +58,8 @@ class UserController extends Controller
     public function trackUser($id){
         try {
             $room_user = RoomUser::where('user_id' , $id)->orderByDesc('id')->first();
+            if(!$room_user)
+                return $this->returnSuccessRespose('Success', ['room_id' => null]);
             return $this->returnSuccessRespose('Success', ['room_id' => $room_user->room_id]);
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
