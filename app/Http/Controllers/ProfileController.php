@@ -35,7 +35,12 @@ class ProfileController extends Controller
 
     public function updateProfile(UpdateProfileRequest $request){
         try {
-            User::find(auth()->user()->id)->update($request->validated());
+            $data = $request->validated();
+            if($request->has('photo'))
+                $data['photo_url'] = image_resize_save($request->file('photo') , 'users');
+            if($request->has('background_image'))
+                $data['background_image'] = image_resize_save($request->file('background_image') , 'users');
+            User::find(auth()->user()->id)->update($data);
             return $this->returnSuccessRespose('Success');
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);

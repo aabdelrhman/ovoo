@@ -44,7 +44,8 @@ class User extends Authenticatable
         'date_of_birth',
         'current_rank_id',
         'next_rank_id',
-        'vip_type_id'
+        'vip_type_id',
+        'background_image'
     ];
 
     /**

@@ -9,11 +9,12 @@ class UpdateProfileRequest extends BaseApiRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'gender' => 'required',
-            'country_id' => 'required|exists:countries,id',
+            'name' => 'nullable',
+            'gender' => 'nullable',
+            'country_id' => 'nullable|exists:countries,id',
             'photo' => 'nullable',
             'date_of_birth' => 'nullable|date',
+            'background_image' => 'nullable',
         ];
     }
 }
