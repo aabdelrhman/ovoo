@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\MedalResource;
 use App\Http\Resources\UserResource;
+use App\Models\RoomUser;
 use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -49,6 +50,15 @@ class UserController extends Controller
                 });
             })->get();
             return $this->returnSuccessRespose('Success', UserResource::collection($user));
+        } catch (\Throwable $th) {
+            return $this->returnErrorRespose($th->getMessage(), 500);
+        }
+    }
+
+    public function trackUser($id){
+        try {
+            $room_user = RoomUser::where('user_id' , $id)->orderByDesc('id')->first();
+            return $this->returnSuccessRespose('Success', ['room_id' => $room_user->room_id]);
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
         }

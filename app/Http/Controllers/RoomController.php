@@ -17,6 +17,7 @@ class RoomController extends Controller
             $data = $request->validated();
             $data['user_id'] = auth()->user()->id;
             $room = Room::create($data);
+            $room->users()->attach(auth()->user()->id);
             return $this->returnSuccessRespose('Success' , new RoomResource($room));
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
