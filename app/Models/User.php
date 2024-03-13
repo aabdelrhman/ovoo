@@ -157,12 +157,8 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'blocked_users', 'user_id', 'blocked_user_id');
     }
 
-    public function userBlocked(){
-        return $this->belongsToMany(User::class, 'blocked_users', 'blocked_user_id', 'user_id');
-    }
-
     public function userBlockedMe(){
-        return $this->belongsToMany(User::class, 'blocked_users', 'user_id', 'blocked_user_id');
+        return $this->belongsToMany(User::class, 'blocked_users', 'blocked_user_id', 'user_id');
     }
 
     public function isBlocked($id)
