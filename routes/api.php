@@ -52,7 +52,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('settings', [SettingController::class, 'index']);
     Route::get('interests', [InterestController::class, 'getAllInterests']);
     Route::get('countries', [CountriesController::class, 'getAllCountries']);
-    Route::group(['middleware' => 'auth:sanctum'], function() {
+    Route::group(['middleware' => 'auth:sanctum' , 'isNotBlockedUser'], function() {
         Route::post('complete-profile', [AuthController::class ,'completeProfile']);
         Route::get('room-levels', [RoomLevelController::class, 'index']);
         Route::get('packages', [PackageController::class, 'index']);
