@@ -27,6 +27,9 @@ class RoomResource extends JsonResource
             'owner' => new UserResource($this->whenLoaded('user')),
             'users' => UserResource::collection($this->whenLoaded('users')),
             'gifts' => GiftResource::collection($this->whenLoaded('gifts')),
+            'is_host' => $this->when(auth()->user() instanceof \App\Models\User, function () {
+                return auth()->user() ? (auth()->user()->id == $this->user_id ? true : false)  : null;
+            }),
             'created_at' => $this->created_at->diffForHumans(),
         ];
     }
