@@ -14,7 +14,7 @@ class RoomController extends Controller
 
     public function index(){
         try {
-            $rooms = Room::orderByDesc('id')->withCount('users')->paginate(10);
+            $rooms = Room::orderByDesc('id')->withCount('users')->with('levelBackground')->paginate(10);
             return $this->returnSuccessResposeWIthPaginate('Success',RoomResource::collection($rooms));
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
