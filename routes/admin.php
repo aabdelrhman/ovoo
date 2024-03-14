@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\RoomLevelController as AdminRoomLevelController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\GiftTypeController;
+use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CountriesController;
@@ -56,5 +57,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::apiResource('products', GiftController::class)->except('destroy');
         Route::post('block-user/{id}' , [UserController::class , 'blockUser']);
         Route::post('un-block-user/{id}' , [UserController::class , 'unBlockUser']);
+        Route::get('rooms' , [RoomController::class , 'index']);
     });
 });

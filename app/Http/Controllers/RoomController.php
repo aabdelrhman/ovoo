@@ -11,6 +11,15 @@ use Illuminate\Http\Request;
 class RoomController extends Controller
 {
     use ApiResponse;
+
+    public function index(){
+        try {
+            $rooms = Room::orderByDesc('id')->withCount('users')->paginate(10);
+            return $this->returnSuccessResposeWIthPaginate('Success',RoomResource::collection($rooms));
+        } catch (\Throwable $th) {
+            return $this->returnErrorRespose($th->getMessage(), 500);
+        }
+    }
     public function store(RoomRequest $request)
     {
         try {

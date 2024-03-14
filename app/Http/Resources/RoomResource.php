@@ -26,6 +26,7 @@ class RoomResource extends JsonResource
             'interest' => new InterestResource($this->whenLoaded('interest')),
             'owner' => new UserResource($this->whenLoaded('user')),
             'users' => UserResource::collection($this->whenLoaded('users')),
+            'users_count' => $this->whenCounted('users') ?? 0,
             'gifts' => GiftResource::collection($this->whenLoaded('gifts')),
             'is_host' => $this->when(auth()->user() instanceof \App\Models\User, function () {
                 return auth()->user() ? (auth()->user()->id == $this->user_id ? true : false)  : null;
