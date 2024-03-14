@@ -37,7 +37,7 @@ class UserController extends Controller
     public function show($id)
     {
         try {
-            $user = User::with('country', 'interests', 'giftSents', 'giftReceiveds', 'currentRank', 'nextRank', 'vipType')->findOrFail($id);
+            $user = User::with('country', 'interests', 'giftSents', 'giftReceiveds', 'currentRank', 'nextRank', 'vipType')->withCount('gift_receiveds' , 'gift_sents' , 'followings' , 'followers')->findOrFail($id);
             return $this->returnSuccessRespose('Success', new UserResource($user));
         } catch (\Throwable $th) {
             return $th;
