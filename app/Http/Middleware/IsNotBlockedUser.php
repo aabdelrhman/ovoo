@@ -18,7 +18,7 @@ class IsNotBlockedUser
     public function handle(Request $request, Closure $next): Response
     {
 
-        if (auth()->user()->is_blocked) {
+        if (auth()->user()->is_blocked == 1) {
 
             return $this->returnErrorRespose('Your account has been blocked', 403);
         }
