@@ -9,6 +9,7 @@ class GiftTypeRequest extends BaseApiRequest
     {
         return [
             'name' => 'required|string',
+            'active' => 'nullable|boolean',
         ];
     }
 }

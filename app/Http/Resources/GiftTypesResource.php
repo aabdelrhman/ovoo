@@ -16,7 +16,8 @@ class GiftTypesResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->name,
+            'active' => (int)$this->active,
         ];
     }
 }

@@ -10,11 +10,17 @@ class GiftType extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'name','active','isCp'
     ];
 
     public function scopeIsCp($builder)
     {
         return $builder->where('isCp', 1);
+    }
+
+
+    public function scopeActive($builder)
+    {
+        return $builder->where('active', 1);
     }
 }
