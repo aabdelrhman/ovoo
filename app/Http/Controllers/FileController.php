@@ -16,7 +16,7 @@ class FileController extends Controller
             $url = image_resize_save($request->file('file'), 'uploads');
             $data = [
                 'domain' => url('/'),
-                'path' => 'public/uploads/'.$url
+                'path' => 'public/'.$url
             ];
             return $this->returnSuccessRespose('Success', $data, 200);
         } catch (Exception $e) {
