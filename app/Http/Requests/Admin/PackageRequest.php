@@ -12,7 +12,8 @@ class PackageRequest extends BaseApiRequest
         return [
             'name' => 'required',
             'price' => 'required|numeric',
-            'coins' => 'required|numeric'
+            'coins' => 'required|numeric',
+            'points' => 'required|numeric',
         ];
     }
 }

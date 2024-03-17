@@ -18,7 +18,8 @@ class PackageResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'price' => $this->price,
-            'coins' => $this->coins
+            'coins' => $this->coins,
+            'points' => (int)$this->points
         ];
     }
 }
