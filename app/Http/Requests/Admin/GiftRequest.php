@@ -13,6 +13,8 @@ class GiftRequest extends BaseApiRequest
             'image' => 'required|string',
             'cost'=> 'required|numeric',
             'gift_type_id' => 'required|exists:gift_types,id',
+            'active' => 'nullable|boolean',
+            'description' => 'nullable|string',
         ];
     }
 }

@@ -19,6 +19,8 @@ class GiftResource extends JsonResource
             'name' => $this->name,
             'image' => asset($this->image),
             'cost' => (int)$this->cost,
+            'active' => (int)$this->active,
+            'description' => $this->description,
             'category' => new GiftTypesResource($this->whenLoaded('giftType'))
         ];
     }

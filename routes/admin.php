@@ -54,7 +54,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('room-levels', [RoomLevelController::class, 'index']);
         Route::apiResource('room-levels', AdminRoomLevelController::class)->except('index');
         Route::apiResource('categories', GiftTypeController::class);
-        Route::apiResource('products', GiftController::class)->except('destroy');
+        Route::apiResource('products', GiftController::class);
         Route::post('block-user/{id}' , [UserController::class , 'blockUser']);
         Route::post('un-block-user/{id}' , [UserController::class , 'unBlockUser']);
         Route::get('rooms' , [RoomController::class , 'index']);
