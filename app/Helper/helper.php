@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
+use PhpParser\Node\Expr\Cast\Object_;
+
 if (!function_exists('image_resize_save')) {
     function uploadImage($file , $path = 'images')
     {
@@ -35,5 +38,14 @@ if (!function_exists('isJson')) {
     function isJson($value): bool
     {
         return is_string($value) && is_array(json_decode($value, true)) && (json_last_error() == JSON_ERROR_NONE);
+    }
+}
+
+
+if (!function_exists('getNextid')) {
+    function getNextid(Model $model, $key)
+    {
+        $data=  $model->where('id', '>', $key)->first();
+        return $data ? $data->id : null;
     }
 }

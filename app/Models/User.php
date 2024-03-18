@@ -47,7 +47,9 @@ class User extends Authenticatable
         'next_rank_id',
         'vip_type_id',
         'background_image',
-        'is_blocked'
+        'is_blocked',
+        'amount',
+        'progress_rank'
     ];
 
     /**
@@ -171,6 +173,60 @@ class User extends Authenticatable
     public function isBlockedMe($id)
     {
         return $this->userBlockedMe()->where('users.id', $id)->exists();
+    }
+
+    public function walletTransactions(){
+
+        return $this->hasMany(WalletTransaction::class);
+    }
+
+    public function addToWallet($type ,$amount){
+
+        $this->amount += $amount;
+        $this->save();
+        $this->addWalletTransaction($type, $amount);
+
+    }
+
+    public function addWalletTransaction($type, $amount, $details = null){
+
+        $this->walletTransactions()->create([
+            'type' => $type,
+            'amount' => $amount,
+            'details' => $details
+        ]);
+    }
+
+    public function addPiontsToUser($points){
+        if($this->current_rank_id == null){
+            $this->current_rank_id = Rank::first()?->id;
+            $this->next_rank_id = getNextId(new Rank , $this->current_rank_id);
+            $this->save();
+        }
+        $this->load('currentRank' , 'nextRank');
+        if($this->progress_rank + $points > $this->currentRank->points){
+            if ($this->next_rank_id != null){
+                $this->progress_rank = 0;
+                $this->current_rank_id = $this->next_rank_id;
+                $this->next_rank_id = getNextId(new Rank , $this->next_rank_id);
+                $points = $points + $this->progress_rank - $this->currentRank->points ;
+                if($this->next_rank_id != null){
+                    if($this->progress_rank + $points > $this->nextRank->points){
+                        $this->save();
+                        $this->addPiontsToUser($points);
+                    }else{
+                        $this->progress_rank = $this->progress_rank + $points;
+                    }
+                }else{
+                    $this->progress_rank += $points;
+                }
+            }else{
+                $this->progress_rank += $points;
+            }
+        }else{
+            $this->progress_rank += $points;
+        }
+        $this->save();
     }
 
 

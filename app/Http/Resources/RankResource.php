@@ -18,6 +18,7 @@ class RankResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'image' => asset($this->image),
+            'points' => (int)$this->points,
             'color' => $this->color
         ];
     }

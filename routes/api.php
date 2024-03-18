@@ -19,6 +19,7 @@ use App\Http\Controllers\RoomLevelBackgroundController;
 use App\Http\Controllers\RoomLevelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VipTypeController;
+use App\Models\Rank;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+
 Route::group(['prefix' => 'v1'], function () {
+    route::get('testtest' , function(){
+
+        dd(getNextElement(new Rank , 6));
+    });
     Route::controller(AuthController::class)->group(function () {
         Route::post('/login-with-phone', 'loginWithPhone');
         Route::post('/verify-code', 'verifyCode');
@@ -78,6 +84,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('user-cbs/{id}' , [UserController::class , 'userCbs']);
         Route::get('track-user/{id}' , [UserController::class , 'trackUser']);
         Route::get('rooms' , [RoomController::class , 'index']);
+        Route::post('buy-coins' , [PackageController::class , 'buyCoins']);
     });
 
 });

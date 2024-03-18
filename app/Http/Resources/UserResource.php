@@ -50,10 +50,11 @@ class UserResource extends JsonResource
             'gifts_send' => GiftResource::collection($this->whenLoaded('giftSents'))  ?? null,
             'gifts_received' => GiftResource::collection($this->whenLoaded('giftReceiveds')) ?? null,
             'is_blocked' => $this->is_blocked == 1 ? true : false,
+            'amount' => $this->amount ?? 0,
             "rank" => [
                 "current_rank" => new RankResource($this->whenLoaded('currentRank')),
                 "next_rank" => new RankResource($this->whenLoaded('nextRank')),
-                "rank_progress" => 0,
+                "rank_progress" => $this->progress_rank ?? 0,
             ],
             "vip_type" => new VipTypeResource($this->whenLoaded('vipType')),
             'is_follow' => $this->when(auth()->user() instanceof \App\Models\User, function () {
