@@ -23,33 +23,41 @@ class GiftController extends Controller
 
     public function store(GiftRequest $request){
         try {
-            $interest = Gift::create($request->validated());
-            return $this->returnSuccessRespose('Success',new GiftResource($interest));
+            $data = $request->validated();
+            if($request->hasFile('image')){
+                $data['image'] = image_resize_save($request->file('image'), 'admin'); ;
+            }
+            $gift = Gift::create($data);
+            return $this->returnSuccessRespose('Success',new GiftResource($gift));
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
         }
     }
-    public function show($interest){
+    public function show($gift){
         try {
-            return $this->returnSuccessRespose('Success', new GiftResource(Gift::with('giftType')->findOrFail($interest)));
-        } catch (\Throwable $th) {
-            return $this->returnErrorRespose($th->getMessage(), 500);
-        }
-    }
-
-    public function update(GiftRequest $request , $interest){
-        try {
-            $interest = Gift::find($interest);
-            $interest->update($request->validated());
-            return $this->returnSuccessRespose('Success',new GiftResource($interest));
+            return $this->returnSuccessRespose('Success', new GiftResource(Gift::with('giftType')->findOrFail($gift)));
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
         }
     }
 
-    public function destroy ($interest){
+    public function update(GiftRequest $request , $gift){
         try {
-            $interest = Gift::find($interest)->delete();
+            $gift = Gift::find($gift);
+            $data = $request->validated();
+            if($request->hasFile('image')){
+                $data['image'] = image_resize_save($request->file('image'), 'admin'); ;
+            }
+            $gift->update($data);
+            return $this->returnSuccessRespose('Success',new GiftResource($gift));
+        } catch (\Throwable $th) {
+            return $this->returnErrorRespose($th->getMessage(), 500);
+        }
+    }
+
+    public function destroy ($gift){
+        try {
+            $gift = Gift::find($gift)->delete();
             return $this->returnSuccessRespose('Success');
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);

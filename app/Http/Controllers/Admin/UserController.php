@@ -27,6 +27,9 @@ class UserController extends Controller
         try {
             $data = $request->validated();
             $data['password'] = Hash::make($data['password']);
+            if($request->hasFile('image')){
+                $data['image'] = image_resize_save($request->file('image'), 'admin'); ;
+            }
             $user = User::create($data);
             return $this->returnSuccessRespose('Success', new UserResource($user));
         } catch (\Throwable $th) {

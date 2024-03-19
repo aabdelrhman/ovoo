@@ -15,7 +15,11 @@ class BannerController extends Controller
 
     public function store(BannerRequest $request){
         try {
-            $banner = Banner::create($request->validated());
+            $data = $request->validated();
+            if($request->hasFile('image')){
+                $data['image'] = image_resize_save($request->file('image'), 'admin'); ;
+            }
+            $banner = Banner::create($data);
             return $this->returnSuccessRespose('Success',new BannerResource($banner));
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
