@@ -10,7 +10,7 @@ class GiftRequest extends BaseApiRequest
     {
         return [
             'name' => 'required|string',
-            'image' => 'nullable|string',
+            'image' => 'nullable',
             'cost'=> 'required|numeric',
             'gift_type_id' => 'required|exists:gift_types,id',
             'active' => 'nullable|boolean',
