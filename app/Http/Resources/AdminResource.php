@@ -25,6 +25,9 @@ class AdminResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'photo' => asset($this->photo),
+            'phone' => $this->phone,
+            'birth_date' => $this->birth_date,
             'role' => $this->roles()->first()?->name,
             'permissions' => $this->getAllPermissions()->pluck('name')->toArray(),
             $this->mergeWhen($this->includeToken, [

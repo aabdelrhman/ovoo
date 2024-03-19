@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\RoomLevelController as AdminRoomLevelController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\GiftTypeController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BannerController;
@@ -58,5 +59,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('block-user/{id}' , [UserController::class , 'blockUser']);
         Route::post('un-block-user/{id}' , [UserController::class , 'unBlockUser']);
         Route::get('rooms' , [RoomController::class , 'index']);
+        Route::get('profile' , [ProfileController::class , 'show']);
+        Route::post('profile' , [ProfileController::class , 'update']);
     });
 });
