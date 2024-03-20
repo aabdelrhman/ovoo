@@ -22,7 +22,7 @@ return [
     'allowed_origins' => [
         'http://localhost:3000', 'http://localhost:5000', 'http://localhost:5173',
         'localhost:3000', 'localhost:5000', 'localhost:5173', 'http:localhost:3001',
-        'localhost:3001'
+        'localhost:3001','https://ovoo-dashboard.vercel.app'
     ],
 
     'allowed_origins_patterns' => [],
