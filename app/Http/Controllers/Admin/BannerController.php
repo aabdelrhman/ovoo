@@ -35,7 +35,6 @@ class BannerController extends Controller
 
     public function update(BannerRequest $request , $banner){
         try {
-            dd($banner);
             $data = $request->validated();
             $banner = Banner::findOrFail($banner);
             if($request->hasFile('image')){
