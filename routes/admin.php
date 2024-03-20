@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AgencyController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BannerController as AdminBannerController;
 use App\Http\Controllers\Admin\CountryController;
@@ -61,5 +62,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('rooms' , [RoomController::class , 'index']);
         Route::get('profile' , [ProfileController::class , 'show']);
         Route::post('profile' , [ProfileController::class , 'update']);
+        Route::apiResource('agencies' , AgencyController::class)->only(['index' , 'store' , 'show']);
     });
 });
