@@ -35,8 +35,9 @@ class BannerController extends Controller
 
     public function update(BannerRequest $request , $banner){
         try {
+            dd($banner);
             $data = $request->validated();
-            $banner = Banner::find($banner);
+            $banner = Banner::findOrFail($banner);
             if($request->hasFile('image')){
                 $data['image'] = image_resize_save($request->file('image'), 'admin'); ;
             }
