@@ -50,7 +50,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('countries', [CountriesController::class, 'getAllCountries']);
         Route::apiResource('countries', CountryController::class)->except('index');
         Route::get('banners', [BannerController::class, 'index']);
-        Route::post('banners/update/{id}', [AdminBannerController::class, 'update']);
+        Route::post('banners/{id}', [AdminBannerController::class, 'update']);
         Route::apiResource('banners', AdminBannerController::class)->except('index' , 'update');
         Route::apiResource('users', UserController::class);
         Route::apiResource('packages', PackageController::class);
@@ -58,7 +58,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::apiResource('room-levels', AdminRoomLevelController::class)->except('index');
         Route::apiResource('categories', GiftTypeController::class);
         Route::apiResource('products', GiftController::class)->except('update');
-        Route::post('products/update/{id}', [GiftController::class , 'update']);
+        Route::post('products/{id}', [GiftController::class , 'update']);
         Route::post('block-user/{id}' , [UserController::class , 'blockUser']);
         Route::post('un-block-user/{id}' , [UserController::class , 'unBlockUser']);
         Route::get('rooms' , [RoomController::class , 'index']);
