@@ -15,7 +15,7 @@ class ChatController extends Controller
     public function index()
     {
         try {
-            $chats = Chat::with(['users' => function ($q) {$q->where('user_id', '!=', auth()->user()->id);}, 'lastMessage' => function ($q) {$q->first();}])->withCount('unreadMessages')->whereHas('users', function ($q) {$q->where('user_id', auth()->user()->id);})->get();
+            $chats = Chat::with(['users' => function ($q) {$q->where('id', '!=', auth()->user()->id);}, 'lastMessage' => function ($q) {$q->first();}])->withCount('unreadMessages')->whereHas('users', function ($q) {$q->where('user_id', auth()->user()->id);})->get();
             return $this->returnSuccessRespose('Success', ChatResource::collection($chats), 200);
         } catch (Exception $e) {
             return $this->returnErrorRespose($e->getMessage(), 500);
