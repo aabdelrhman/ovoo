@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\GiftController;
@@ -39,10 +40,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::group(['prefix' => 'v1'], function () {
-    route::get('testtest' , function(){
-
-        dd(getNextElement(new Rank , 6));
-    });
     Route::controller(AuthController::class)->group(function () {
         Route::post('/login-with-phone', 'loginWithPhone');
         Route::post('/verify-code', 'verifyCode');
@@ -85,6 +82,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('track-user/{id}' , [UserController::class , 'trackUser']);
         Route::get('rooms' , [RoomController::class , 'index']);
         Route::post('buy-coins' , [PackageController::class , 'buyCoins']);
+        Route::apiResource('create-chat-room' , ChatController::class)->except(['update']);
     });
 
 });
