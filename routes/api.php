@@ -40,7 +40,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('send-message' , function(Request $request){
-    dd($request);
+    return($request);
 });
 
 Route::group(['prefix' => 'v1'], function () {
