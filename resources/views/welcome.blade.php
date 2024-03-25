@@ -14,7 +14,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/socket.io-client/dist/socket.io.js"></script>
     <script>
-        const socket = io('http://local.ovoo:3000');
+        const socket = io('https://ovoo.app:6001');
 
         socket.on('chat message', (msg) => {
             const messagesDiv = document.getElementById('messages');
