@@ -19,3 +19,7 @@ yarn-error.log
 /.vscode
 public/users/20240313164709ec3250f9c401d035f27dd856434fa3.jpg
 /public/users
+/public/agencies
+/public/uploads
+/public/admin
+server.js
