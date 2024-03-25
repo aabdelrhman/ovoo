@@ -39,9 +39,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('send-message' , function(Request $request){
-    return($request);
-});
 
 Route::group(['prefix' => 'v1'], function () {
     Route::controller(AuthController::class)->group(function () {
@@ -87,7 +84,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('rooms' , [RoomController::class , 'index']);
         Route::post('buy-coins' , [PackageController::class , 'buyCoins']);
         Route::apiResource('create-chat-room' , ChatController::class)->except(['update']);
-        // Route::post('send-message' , [ChatMessageController::class , 'store']);
+        Route::post('send-message' , [ChatMessageController::class , 'store']);
     });
 
 });
