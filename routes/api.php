@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ChatMessageController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\GiftController;
@@ -83,6 +84,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('rooms' , [RoomController::class , 'index']);
         Route::post('buy-coins' , [PackageController::class , 'buyCoins']);
         Route::apiResource('create-chat-room' , ChatController::class)->except(['update']);
+        Route::post('send-message' , [ChatMessageController::class , 'store']);
     });
 
 });
