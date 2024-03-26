@@ -16,8 +16,13 @@ class Gift extends Model
         'cost',
         'gift_type_id',
         'active',
-        'description'
+        'description',
+        'is_accepted'
     ];
+
+    public function scopeActive($query){
+        return $query->where('active', 1);
+    }
 
     public function giftType()
     {
