@@ -19,9 +19,9 @@ class GiftsSeeder extends Seeder
         }
         GiftType::insert([
             ['name' => 'Gifts'],
-            ['name' => 'CP'],
+            ['name' => 'CP' , 'isCp' => 1],
             ['name' => 'VIP'],
-            ['name' => 'Customized']
+            ['name' => 'Customized' , 'is_customized' => 1]
         ]);
 
         Gift::insert([

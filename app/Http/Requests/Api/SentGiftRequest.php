@@ -11,6 +11,7 @@ class SentGiftRequest extends BaseApiRequest
         return [
             'gift_id' => 'required|exists:gifts,id',
             'room_id' => 'required|exists:rooms,id',
+            'gift_count' => 'required|integer|min:1',
         ];
     }
 }

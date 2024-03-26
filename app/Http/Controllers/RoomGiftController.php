@@ -14,8 +14,11 @@ class RoomGiftController extends Controller
     {
         try {
             $data = $request->validated();
-            $data['room_creater_id'] = Room::find($data['room_id'])?->user_id;
-            auth()->user()->giftSents()->create($data);
+            auth()->user()->giftSents()->attach($data['gift_id'], [
+                'room_id' => $data['room_id'],
+                'gift_count' => $data['gift_count'],
+                'room_creater_id' => Room::find($data['room_id'])?->user_id
+            ]);
             return $this->returnSuccessRespose('Success');
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);

@@ -13,7 +13,8 @@ class RoomGift extends Model
         'user_id',
         'room_id',
         'room_creater_id',
-        'gift_id'
+        'gift_id',
+        'gift_count'
     ];
 
     public function room()
