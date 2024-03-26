@@ -14,5 +14,6 @@ class Package extends Model
         'price',
         'coins',
         'points',
+        'plus'
     ];
 }
