@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AcceptCustomizedGiftRequest;
 use App\Http\Requests\Admin\GiftRequest;
 use App\Http\Resources\GiftResource;
 use App\Models\Gift;
@@ -15,7 +16,7 @@ class GiftController extends Controller
 
     public function index(){
         try {
-            return $this->returnSuccessRespose('Success',GiftResource::collection(Gift::with('giftType')->get()));
+            return $this->returnSuccessRespose('Success',GiftResource::collection(Gift::with('giftType')->where('is_accepted' , 1)->get()));
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
         }
@@ -59,6 +60,24 @@ class GiftController extends Controller
         try {
             $gift = Gift::find($gift)->delete();
             return $this->returnSuccessRespose('Success');
+        } catch (\Throwable $th) {
+            return $this->returnErrorRespose($th->getMessage(), 500);
+        }
+    }
+
+    public function customizedGiftRequests(){
+        try {
+            return $this->returnSuccessRespose('Success',GiftResource::collection(Gift::where('is_accepted' , 0)->get()));
+        } catch (\Throwable $th) {
+            return $this->returnErrorRespose($th->getMessage(), 500);
+        }
+    }
+
+    public function acceptCustomizedGift(AcceptCustomizedGiftRequest $request){
+        try {
+            $gift = Gift::find($request->id);
+            $gift->update(['is_accepted' => 1 , 'cost' => $request->cost]);
+            return $this->returnSuccessRespose('Success',new GiftResource($gift));
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
         }
