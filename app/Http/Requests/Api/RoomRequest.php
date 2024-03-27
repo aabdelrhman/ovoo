@@ -34,10 +34,13 @@ class RoomRequest extends BaseApiRequest
         ];
     }
 
-    // public function prepareForValidation(){
+    public function prepareForValidation(){
 
-    //     $this->merge([
-    //         'level_background_id' => RoomLevelBackground::where('level_id', $this->level_id)->first()->id
-    //     ]);
-    // }
+        if(isset($this->level_id) && !isset($this->level_background_id)){
+            $this->merge([
+                'level_background_id' => RoomLevelBackground::where('level_id', $this->level_id)->first()->id
+            ]);
+        }
+
+    }
 }
