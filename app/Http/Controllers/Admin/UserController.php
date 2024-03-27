@@ -69,4 +69,13 @@ class UserController extends Controller
             return $this->returnErrorRespose($th->getMessage(), 500);
         }
     }
+
+    public function blockedUsers(){
+        try {
+            $users = User::where('is_blocked', 1)->get();
+            return $this->returnSuccessRespose('Success', UserResource::collection($users));
+        } catch (\Throwable $th) {
+            return $this->returnErrorRespose($th->getMessage(), 500);
+        }
+    }
 }

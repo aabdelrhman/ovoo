@@ -67,5 +67,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::apiResource('agencies' , AgencyController::class)->only(['index' , 'store' , 'show']);
         Route::get('customized-gift-requests' , [GiftController::class , 'customizedGiftRequests']);
         Route::post('accept-customized-gift' , [GiftController::class , 'acceptCustomizedGift']);
+        Route::get('blocked-users' , [UserController::class , 'blockedUsers']);
     });
 });
