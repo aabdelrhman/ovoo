@@ -83,7 +83,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('track-user/{id}' , [UserController::class , 'trackUser']);
         Route::get('rooms' , [RoomController::class , 'index']);
         Route::post('buy-coins' , [PackageController::class , 'buyCoins']);
-        Route::apiResource('create-chat-room' , ChatController::class)->except(['update']);
+        Route::apiResource('chats' , ChatController::class)->except(['update']);
         Route::post('send-message' , [ChatMessageController::class , 'store']);
         Route::post('create-customize-gift' , [GiftController::class , 'addCustimizedGift']);
     });

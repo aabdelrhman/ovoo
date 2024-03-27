@@ -19,7 +19,7 @@ class ChatResource extends JsonResource
             'name' => $this->name,
             'messages' => ChatMessageResource::collection($this->whenLoaded('messages')),
             'users' => UserResource::collection($this->whenLoaded('users')),
-            'last_message' =>new ChatMessageResource($this->whenLoaded('lastMessage')) ?? null,
+            'last_message' => $this->whenLoaded('lastMessage') ? new ChatMessageResource($this->lastMessage->first()) : null,
             'count_unread_messages' => $this->unread_messages_count ?? 0 ,
             'created_at' => $this->created_at->toDateTimeString(),
 
