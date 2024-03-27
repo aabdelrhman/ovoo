@@ -18,7 +18,19 @@ class ChatResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'messages' => ChatMessageResource::collection($this->whenLoaded('messages')),
-            'users' => UserResource::collection($this->whenLoaded('users')),
+            'users' => $this->whenLoaded('users', function () {
+                return collect($this->users)->map(function ($user) {
+                    return [
+                        'id' => $user->id,
+                        'name' => $user->name ?? null,
+                        'email' => $user->email ?? null,
+                        'phone' => $user->phone ?? null, // Include phone with null value if it's null
+                        'user_name' => $user->user_name ?? null,
+                        'photo_url' => $user->photo_url ?? null,
+                        'is_verified' => $user->is_verified ?? 0,
+                    ];
+                });
+            }),
             'last_message' => $this->whenLoaded('lastMessage') ? new ChatMessageResource($this->lastMessage->first()) : null,
             'count_unread_messages' => $this->unread_messages_count ?? 0 ,
             'created_at' => $this->created_at->toDateTimeString(),

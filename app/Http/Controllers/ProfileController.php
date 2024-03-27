@@ -40,7 +40,7 @@ class ProfileController extends Controller
                 $data['photo_url'] = image_resize_save($request->file('photo') , 'users');
             if($request->has('background_image'))
                 $data['background_image'] = image_resize_save($request->file('background_image') , 'users');
-            $user = User::find(auth()->user()->id);
+            $user = User::with('giftReceiveds' , 'giftSents', 'currentRank' , 'nextRank' , 'country')->withCount('followers' , 'followings' , 'giftSents' , 'giftReceiveds')->find(auth()->user()->id);
             $user->update($data);
             return $this->returnSuccessRespose('Success', new UserResource($user));
         } catch (\Throwable $th) {

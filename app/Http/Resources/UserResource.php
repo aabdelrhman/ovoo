@@ -50,7 +50,7 @@ class UserResource extends JsonResource
             'gifts_send' => GiftResource::collection($this->whenLoaded('giftSents'))  ?? null,
             'gifts_received' => GiftResource::collection($this->whenLoaded('giftReceiveds')) ?? null,
             'is_blocked' => $this->is_blocked == 1 ? true : false,
-            'amount' => $this->amount ?? 0,
+            'balance' => $this->amount ?? 0,
             "rank" => [
                 "current_rank" => new RankResource($this->whenLoaded('currentRank')),
                 "next_rank" => new RankResource($this->whenLoaded('nextRank')),
