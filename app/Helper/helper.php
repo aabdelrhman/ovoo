@@ -14,7 +14,7 @@ if (!function_exists('image_resize_save')) {
 if (!function_exists('image_resize_save')) {
     function image_resize_save($image, $path)
     {
-        $filename = date('YmdHi') . str_replace(" ", "", $image->getClientOriginalName());
+        $filename = uniqid() . '.' . $image->extension();
         $image->move(public_path($path), $filename);
         return 'public/'.$path.'/' .$filename;
     }

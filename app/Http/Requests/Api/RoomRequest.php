@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api;
 
+use App\Models\RoomLevelBackground;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RoomRequest extends BaseApiRequest
@@ -27,9 +28,16 @@ class RoomRequest extends BaseApiRequest
             'level_id' => 'required|exists:room_levels,id',
             'level_background_id' => 'required|exists:room_level_backgrounds,id',
             'interest_id' => 'required|exists:interests,id',
-            'coins_target' => 'required|integer',
-            'visitors_target' => 'required|integer',
-            'gifts_target' => 'required|integer',
+            'coins_target' => 'integer',
+            'visitors_target' => 'integer',
+            'gifts_target' => 'integer',
         ];
     }
+
+    // public function prepareForValidation(){
+
+    //     $this->merge([
+    //         'level_background_id' => RoomLevelBackground::where('level_id', $this->level_id)->first()->id
+    //     ]);
+    // }
 }
