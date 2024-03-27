@@ -41,7 +41,7 @@ class ProfileController extends Controller
             if($request->has('background_image'))
                 $data['background_image'] = image_resize_save($request->file('background_image') , 'users');
             User::find(auth()->user()->id)->update($data);
-            return $this->returnSuccessRespose('Success', new UserResource(auth()->user()));
+            return $this->returnSuccessRespose('Success', new UserResource(User::find(auth()->user()->id)));
         } catch (\Throwable $th) {
             return $this->returnErrorRespose($th->getMessage(), 500);
         }
