@@ -44,7 +44,9 @@ class ChatController extends Controller
     public function show($id)
     {
         try {
-            $chat = Chat::with('users', 'messages')->findOrFail($id);
+            $chat = Chat::with(['users' => function ($q) {
+                $q->where('user_id', '!=', auth()->user()->id);
+            }, 'messages'])->findOrFail($id);
             return $this->returnSuccessRespose('Success', new ChatResource($chat), 200);
         } catch (Exception $e) {
             return $this->returnErrorRespose($e->getMessage(), 500);
