@@ -23,7 +23,7 @@ if (!function_exists('image_resize_save')) {
 if (!function_exists('generateSmsCode')) {
     function generateSmsCode()
     {
-        return 00000;
+        return 12345;
         // return rand(10000, 99999);
     }
 }
