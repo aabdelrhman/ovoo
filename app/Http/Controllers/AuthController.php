@@ -99,8 +99,9 @@ class AuthController extends Controller
                     'current_rank_id' => 1,
                     'next_rank_id' => 2,
                 ]);
+            }else{
+                $user->update(['verification_code' => $smsCode]);
             }
-            $user->update(['verification_code' => $smsCode]);
             $smsService->sendSMS($request->phone, $smsCode);
             return $this->returnSuccessRespose('Success', null, 200);
         } catch (Exception $e) {
